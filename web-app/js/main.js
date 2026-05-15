@@ -66,7 +66,7 @@ const tabs = document.querySelectorAll('.tab');
 // Category Filtering (tabs)
 
 const projectCards = document.querySelectorAll('.project-card');
-const tabs = document.querySelectorAll('.tab');
+const gameTabs = document.querySelectorAll('.tab');
 const searchInput = document.getElementById('projectSearch');
 const searchClear = document.getElementById('searchClear');
 const searchDropdown = document.getElementById('searchDropdown');
@@ -87,6 +87,8 @@ function debounce(func, delay) {
         timeoutId = setTimeout(() => func(...args), delay);
     };
 }
+
+let recentSearches = [];
 
 // Get all matching projects for search query
 function getMatchingProjects(query) {
@@ -171,12 +173,25 @@ function highlightMatch(text, query) {
 
 // Render recent searches
 function renderRecentSearches() {
+
+    if (
+        !recentSearchesSection ||
+        !tipsSection ||
+        !resultsSection
+    ) {
+        return;
+    }
+
     if (recentSearches.length === 0) {
+
         recentSearchesSection.style.display = 'none';
         tipsSection.style.display = 'block';
         resultsSection.style.display = 'none';
+
         return;
     }
+
+    recentSearchesSection.style.display = 'block';
     
     recentSearchesList.innerHTML = '';
     recentSearches.slice(0, 5).forEach((search) => {
