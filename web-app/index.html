@@ -437,6 +437,10 @@
             color: #3b82f6;
         }
 
+        .game-icon-bird {
+            color: #38bdf8;
+        }
+
         /* Math Icons */
 
         .math-icon-fibonacci {
@@ -536,22 +540,22 @@
                     <div class="hero-features" role="tablist" aria-label="Project categories">
                         <button class="feature-badge tab active" data-category="all"
                                 role="tab" aria-selected="true" tabindex="0">
-                            <span class="feature-icon">🌟</span>
+                            <span class="feature-icon"><i data-lucide="star"></i></span>
                             <span class="feature-label">All Projects</span>
                         </button>
                         <button class="feature-badge tab" data-category="games"
                                 role="tab" aria-selected="false" tabindex="-1">
-                            <span class="feature-icon">🎮</span>
+                            <span class="feature-icon"><i data-lucide="gamepad-2"></i></span>
                             <span class="feature-label">Games</span>
                         </button>
                         <button class="feature-badge tab" data-category="math"
                                 role="tab" aria-selected="false" tabindex="-1">
-                            <span class="feature-icon">🔢</span>
+                            <span class="feature-icon"><i data-lucide="hash"></i></span>
                             <span class="feature-label">Math</span>
                         </button>
                         <button class="feature-badge tab" data-category="utilities"
                                 role="tab" aria-selected="false" tabindex="-1">
-                            <span class="feature-icon">🔐</span>
+                            <span class="feature-icon"><i data-lucide="lock"></i></span>
                             <span class="feature-label">Utilities</span>
                         </button>
                         <!--
@@ -562,14 +566,14 @@
                         -->
                         <button class="feature-badge tab" data-category="playground" id="playgroundTab"
                                 role="tab" aria-selected="false" tabindex="-1">
-                            <span class="feature-icon">🐍</span>
+                            <span class="feature-icon"><i data-lucide="terminal"></i></span>
                             <span class="feature-label">Playground</span>
                         </button>
                     </div>
 
                     <button class="btn-random-project" id="randomProjectBtn"
                             title="Discover a random project!">
-                        <i class="fas fa-dice"></i> Random Project 🎲
+                        <i data-lucide="dice-5"></i> Random Project
                     </button>
                 </div>
             </div>
@@ -583,7 +587,9 @@
                     <!-- GAMES -->
                     <div class="project-card" data-category="games" data-project="rock-paper-scissor"
                         data-tags="game,random,choice,strategy,decision">
-                        <div class="card-icon">🪨</div>
+                        <div class="card-icon game-icon-rps">
+                            <i data-lucide="scissors"></i>
+                        </div>
                         <h3>Rock Paper Scissors</h3>
                         <p>Battle against the computer!</p>
                         <button class="btn-play">Try It</button>
@@ -667,7 +673,9 @@
 
                     <div class="project-card" data-category="games" data-project="math-quiz"
                         data-tags="game,math,quiz,mcq,lives,streak">
-                        <div class="card-icon">🧠</div>
+                        <div class="card-icon game-icon-brain">
+                            <i data-lucide="brain"></i>
+                        </div>
                         <h3>Math Quiz</h3>
                         <p>MCQ quiz with lives, streaks & difficulty levels!</p>
                         <button class="btn-play">Try It</button>
@@ -701,17 +709,14 @@
                     </div>
 
                     <div class="project-card" data-category="games" data-project="flappy-game">
-                        <div class="card-icon">🐦</div>
+                        <div class="card-icon game-icon-bird">
+                            <i data-lucide="bird"></i>
+                        </div>
                         <h3>Flappy Game</h3>
                         <p>Dodge the incoming balls and survive!</p>
                         <button class="btn-play">Try It</button>
                     </div>
 
-                    <div class="project-card" data-category="math" data-project="fibonacci"
-                        data-tags="math,sequence,series,loops,recursion">
-                    <div class="project-card" data-category="games" data-project="game2048"
-                        data-tags="game,puzzle,2048,logic,tiles">
-                        <div class="card-icon">🟦</div>
                     <div class="project-card" data-category="games" data-project="2048-game"
                          data-tags="game,puzzle,2048,logic,tiles">
                         <div class="card-icon game-icon-puzzle">
@@ -725,7 +730,9 @@
                     <!-- MATH -->
                     <div class="project-card" data-category="math" data-project="fibonacci"
                         data-tags="math,sequence,series,loops,recursion">
-                        <div class="card-icon">✨</div>
+                        <div class="card-icon math-icon-fibonacci">
+                            <i data-lucide="sparkles"></i>
+                        </div>
                         <h3>Fibonacci Series</h3>
                         <p>Generate Fibonacci sequences!</p>
                         <button class="btn-play">Try It</button>
