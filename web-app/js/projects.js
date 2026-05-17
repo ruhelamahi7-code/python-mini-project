@@ -5,6 +5,7 @@ function getProjectHTML(projectName) {
         'rock-paper-scissor': getRockPaperScissorHTML(),
         'dice-rolling': getDiceRollingHTML(),
         'coin-flip': getCoinFlipHTML(),
+        'blackjack(21)' : getBlackjackHTML(),
         'number-guessing': getNumberGuessingHTML(),
         'hangman': getHangmanHTML(),
         'flames': getFlamesHTML(),
@@ -30,6 +31,7 @@ function initializeProject(projectName) {
         'rock-paper-scissor': initRockPaperScissor,
         'dice-rolling': initDiceRolling,
         'coin-flip': initCoinFlip,
+        'blackjack(21)' : initBlackjack,
         'number-guessing': initNumberGuessing,
         'hangman': initHangman,
         'flames': initFlames,
@@ -789,6 +791,237 @@ function initCoinFlip() {
 
 // Continue with more projects in next message...
 // Additional Project Implementations
+
+
+// ============================================
+// BLACKJACK (21)
+// ============================================
+function getBlackjackHTML() {
+    return `
+        <div class="project-content">
+            <h2>🃏 BlackJack (21)</h2>
+            <div class="blackjack-container">
+                <div class="dealer-area">
+                    <h3>Dealer's Hand (<span id="dealerScore">?</span>)</h3>
+                    <div id="dealerCards" class="cards-display"></div>
+                </div>
+                
+                <div class="game-message" id="blackjackMessage">Game Starting...</div>
+                
+                <div class="player-area">
+                    <h3>Your Hand (<span id="playerScore">0</span>)</h3>
+                    <div id="playerCards" class="cards-display"></div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn-play" id="btnHit">Hit</button>
+                    <button class="btn-play" id="btnStand">Stand</button>
+                    <button class="btn-play" style="display:none;" id="btnRestart">Play Again</button>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+            .blackjack-container {
+                text-align: center;
+                padding: 1rem 2rem 3rem;
+            }
+            .cards-display {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                margin: 15px 0;
+                min-height: 85px;
+            }
+            .card-ui {
+                background: white;
+                color: black;
+                padding: 15px 20px;
+                border-radius: 8px;
+                font-size: 1.8rem;
+                font-weight: bold;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                border: 1px solid #ccc;
+                min-width: 60px;
+            }
+            .card-ui.red {
+                color: #e53e3e;
+            }
+            .card-ui.hidden-card {
+                background: repeating-linear-gradient(45deg, #2d3748, #2d3748 10px, #4a5568 10px, #4a5568 20px);
+                color: transparent;
+            }
+            .game-message {
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin: 25px 0;
+                color: var(--primary-color);
+                min-height: 3rem;
+            }
+            .controls {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                margin-top: 30px;
+            }
+        </style>
+    `;
+}
+
+function initBlackjack() {
+    const deckTemplate = [
+        "A♠️", "2♠️", "3♠️", "4♠️", "5♠️", "6♠️", "7♠️", "8♠️", "9♠️", "10♠️", "J♠️", "Q♠️", "K♠️",
+        "A♥️", "2♥️", "3♥️", "4♥️", "5♥️", "6♥️", "7♥️", "8♥️", "9♥️", "10♥️", "J♥️", "Q♥️", "K♥️",
+        "A♦️", "2♦️", "3♦️", "4♦️", "5♦️", "6♦️", "7♦️", "8♦️", "9♦️", "10♦️", "J♦️", "Q♦️", "K♦️",
+        "A♣️", "2♣️", "3♣️", "4♣️", "5♣️", "6♣️", "7♣️", "8♣️", "9♣️", "10♣️", "J♣️", "Q♣️", "K♣️"
+    ];
+    
+    let deck = [];
+    let playerHand = [];
+    let dealerHand = [];
+    let playerCards = [];
+    let dealerCards = [];
+    
+    const btnHit = document.getElementById("btnHit");
+    const btnStand = document.getElementById("btnStand");
+    const btnRestart = document.getElementById("btnRestart");
+    const messageEl = document.getElementById("blackjackMessage");
+    const dealerCardsEl = document.getElementById("dealerCards");
+    const playerCardsEl = document.getElementById("playerCards");
+    const dealerScoreEl = document.getElementById("dealerScore");
+    const playerScoreEl = document.getElementById("playerScore");
+
+    // Replaces random.shuffle()
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Replaces check(rank)
+    function checkRank(rank) {
+        if (['Q', 'K', 'J'].includes(rank)) return 10;
+        if (rank === 'A') return 1;
+        return parseInt(rank);
+    }
+
+    // Replaces calculate(hand) and adds Ace logic (1 or 11)
+    function calculate(hand) {
+        let sum = 0;
+        let aces = 0;
+        for (let val of hand) {
+            sum += val;
+            if (val === 1) aces += 1;
+        }
+        while (aces > 0 && sum + 10 <= 21) {
+            sum += 10;
+            aces -= 1;
+        }
+        return sum;
+    }
+
+    // Helper to render card UI
+    function getCardHTML(cardStr, isHidden = false) {
+        if (isHidden) {
+            return `<div class="card-ui hidden-card">?</div>`;
+        }
+        const isRed = cardStr.includes("♥️") || cardStr.includes("♦️");
+        return `<div class="card-ui ${isRed ? 'red' : ''}">${cardStr}</div>`;
+    }
+
+    // Refresh the view
+    function updateUI(hideDealerCard = false) {
+        playerCardsEl.innerHTML = playerCards.map(card => getCardHTML(card)).join("");
+        playerScoreEl.textContent = calculate(playerHand);
+        
+        if (hideDealerCard && dealerCards.length > 0) {
+            dealerCardsEl.innerHTML = getCardHTML(dealerCards[0]) + getCardHTML(null, true);
+            dealerScoreEl.textContent = "?";
+        } else {
+            dealerCardsEl.innerHTML = dealerCards.map(card => getCardHTML(card)).join("");
+            dealerScoreEl.textContent = calculate(dealerHand);
+        }
+    }
+
+    function drawCard(isPlayer) {
+        const card = deck.pop();
+        const rankStr = card.slice(0, -2); // Replaces card[:-2]
+        const rankVal = checkRank(rankStr);
+        
+        if (isPlayer) {
+            playerCards.push(card);
+            playerHand.push(rankVal);
+        } else {
+            dealerCards.push(card);
+            dealerHand.push(rankVal);
+        }
+    }
+
+    function startGame() {
+        deck = [...deckTemplate];
+        shuffle(deck);
+        
+        playerHand = []; dealerHand = [];
+        playerCards = []; dealerCards = [];
+        
+        btnHit.style.display = "inline-block";
+        btnStand.style.display = "inline-block";
+        btnRestart.style.display = "none";
+        messageEl.textContent = "Your Turn! Hit or Stand?";
+        
+        drawCard(true); // Player
+        drawCard(false); // Dealer
+        drawCard(true); // Player
+        drawCard(false); // Dealer
+        
+        updateUI(true); // Hide dealer's second card initially
+    }
+    
+    function endGame(msg) {
+        messageEl.textContent = msg;
+        btnHit.style.display = "none";
+        btnStand.style.display = "none";
+        btnRestart.style.display = "inline-block";
+        updateUI(false); // Reveal dealer's hidden card
+    }
+
+    btnHit.addEventListener("click", () => {
+        drawCard(true);
+        updateUI(true);
+        
+        if (calculate(playerHand) > 21) {
+            endGame("Bust! You lose!");
+        }
+    });
+
+    btnStand.addEventListener("click", () => {
+        // Dealer draws until count is at least 17
+        while (calculate(dealerHand) < 17) {
+            drawCard(false);
+        }
+        
+        const pCount = calculate(playerHand);
+        const dCount = calculate(dealerHand);
+        
+        if (dCount > 21) {
+            endGame("Dealer Bust! You win!");
+        } else if (pCount === dCount) {
+            endGame("Draw!");
+        } else if (pCount > dCount) {
+            endGame("You win!");
+        } else {
+            endGame("Dealer wins!");
+        }
+    });
+    
+    btnRestart.addEventListener("click", startGame);
+
+    // Initialize first game automatically
+    startGame();
+}
+
 
 // ============================================
 // NUMBER GUESSING
