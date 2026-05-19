@@ -69,7 +69,8 @@ function initializeProject(projectName) {
         'coordinate-polar-transform': initCoordinatePolarTransform,
         'derivative-calculator': initDerivativeCalculator,
         'morse-code': initMorseCode,
-        'tower-of-hanoi': initTowerOfHanoi
+        'tower-of-hanoi': initTowerOfHanoi,
+        '2048-game': init2048Game // Added explicit mapped hook definition binding reference
     };
     
     if (initializers[projectName]) {
