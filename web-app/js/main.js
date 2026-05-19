@@ -622,6 +622,38 @@ document.addEventListener('DOMContentLoaded', function () {
     // ── Wire Cards and Play Buttons ───────────────────────────────────
     projectCards.forEach(function (card) {
         var name = card.getAttribute('data-project');
+
+      var favBtn = document.createElement('button');
+        favBtn.className = 'btn-favorite';
+        favBtn.setAttribute('aria-label', 'Toggle favorite');
+        favBtn.innerHTML = '<i class="far fa-star"></i>';
+
+        var favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        if (favorites.includes(name)) {
+            favBtn.classList.add('active');
+            favBtn.innerHTML = '<i class="fas fa-star"></i>';
+        }
+
+        favBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+            var idx = favs.indexOf(name);
+            if (idx === -1) {
+                favs.push(name);
+                favBtn.classList.add('active');
+                favBtn.innerHTML = '<i class="fas fa-star"></i>';
+            } else {
+                favs.splice(idx, 1);
+                favBtn.classList.remove('active');
+                favBtn.innerHTML = '<i class="far fa-star"></i>';
+                if (currentCategory === 'favorites') {
+                    card.style.display = 'none';
+                }
+            }
+            localStorage.setItem('favorites', JSON.stringify(favs));
+        });
+        card.appendChild(favBtn);
+      
         var play = card.querySelector('.btn-play');
         if (play) {
             play.setAttribute('aria-label', 'Open ' + name);
