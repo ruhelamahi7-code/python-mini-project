@@ -36,6 +36,7 @@ function getProjectHTML(projectName) {
         'spot-the-difference': getSpotTheDifferenceHTML(),
         'flappy-game': getFlappyGameHTML(),
         '2048-game': get2048GameHTML(),
+        "productive-pet":getProductivePetHTML(),
         'color-palette': getColorPaletteHTML(),
     };
     
@@ -3733,6 +3734,40 @@ function resetGame() {
     document.getElementById('status').textContent =
         "Player X's Turn";
 }
+function getProductivePetHTML() {
+    return `
+        <div class="productive-pet-container">
+            <h2 class="pet-title">🐱 Productive Pet</h2>
+
+            <div class="pet-card">
+                <div class="pet-level" id="petLevel">Level 1</div>
+
+                <div class="pet-emoji">🐱</div>
+
+                <div id="petMood">Tired 🥱</div>
+
+                <div class="xp-container">
+                    <div class="xp-bar">
+                        <div class="xp-fill"></div>
+                    </div>
+                    <span id="xpText">0 / 100 XP</span>
+                </div>
+
+                <div class="task-input-area">
+                    <input id="taskInput" placeholder="Enter task..." />
+                    <button id="addTaskBtn">Add Task</button>
+                </div>
+
+                <ul id="taskList"></ul>
+
+                <div id="streakText">🔥 Streak: 0</div>
+            </div>
+        </div>
+    `;
+}
+
+
+
 
 
 function initializeProject(projectName) {
@@ -3766,6 +3801,7 @@ function initializeProject(projectName) {
         'spot-the-difference': initSpotTheDifference,
         'whack-a-mole': initWhackaMole,
         'flappy-game': initFlappyGame,
+        'productive-pet': initProductivePet,
         'simon-says': initSimonSays,
         '2048-game': init2048Game,
         'color-palette': initColorPalette, 
