@@ -17,6 +17,8 @@ function get2048GameHTML() {
                     </div>
                 </div>
 
+                <div id="game-message"></div>
+
                 <div class="game-layout">
                     <div id="grid-container"></div>
 
@@ -55,6 +57,13 @@ function get2048GameHTML() {
                     margin-bottom: 25px;
                     width: 100%;
                     max-width: 480px;
+                }
+
+                #game-message {
+                    margin-bottom: 15px;
+                    min-height: 24px;
+                    font-weight: bold;
+                    color: #ef4444;
                 }
 
                 .score-box {
@@ -218,6 +227,7 @@ function init2048Game() {
             [0,0,0,0]
         ];
         score = 0;
+        document.getElementById("game-message").textContent = "";
         addNewTile();
         addNewTile();
         drawBoard();
@@ -328,16 +338,64 @@ function init2048Game() {
         return moved;
     }
 
+    function checkGameOver() {
+        for (let r = 0; r < 4; r++) {
+            for (let c = 0; c < 4; c++) {
+                
+                if (board[r][c] === 0)
+                    return false;
+
+                
+                if (
+                    c < 3 &&
+                    board[r][c] === board[r][c + 1]
+                )
+                    return false;
+
+                
+                if (
+                    r < 3 &&
+                    board[r][c] === board[r + 1][c]
+                )
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
     function makeMove(dir) {
+
         let moved = false;
+
         if (dir === "left") moved = moveLeft();
         if (dir === "right") moved = moveRight();
         if (dir === "up") moved = moveUp();
         if (dir === "down") moved = moveDown();
 
+        const gameMessage =
+            document.getElementById("game-message");
+
         if (moved) {
+
+            gameMessage.textContent = "";
+
             addNewTile();
+
+            if (checkGameOver()) {
+                gameMessage.textContent = "GAME OVER!";
+            }
+
             drawBoard();
+
+        } else {
+
+            if (checkGameOver()) {
+                gameMessage.textContent = "GAME OVER!";
+            } else {
+                gameMessage.textContent =
+                    "No move possible in this direction!";
+            }
         }
     }
 
