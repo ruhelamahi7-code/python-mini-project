@@ -1,6 +1,9 @@
 // Project Registry
 // Each project's HTML and logic lives in its own file under js/projects/
 
+//To Prevent duplicate intialisation
+let activeProject=null;
+
 function getProjectHTML(projectName) {
     const projects = {
         'rock-paper-scissor': getRockPaperScissorHTML(),
@@ -23,7 +26,7 @@ function getProjectHTML(projectName) {
         'morse-code': getMorseCodeHTML(),
         'tower-of-hanoi': getTowerOfHanoiHTML(),
         'number-converter': getNumberConverterHTML(),
-        'typing-speed-tester': getTypingSpeedTesterHTML()
+        'typing-speed-tester': getTypingSpeedTesterHTML(),
         'snake-game': getsnakeGameHTML(),
         'password-forge': getPasswordForgeHTML(),
         'whack-a-mole': getWhackaMoleHTML(),
@@ -33,6 +36,12 @@ function getProjectHTML(projectName) {
 }
 
 function initializeProject(projectName) {
+    //Prevent duplicate listeners+duplicate ui execution
+    //if same project is already active it will not re run init
+    if(activeProject ===projectName ) return;
+
+    activeProject=projectName;
+
     const initializers = {
         'rock-paper-scissor': initRockPaperScissor,
         'dice-rolling': initDiceRolling,
@@ -57,6 +66,7 @@ function initializeProject(projectName) {
         'typing-speed-tester': initTypingSpeedTester,
         'snake-game': initSnakeGame,
         'whack-a-mole': initWhackaMole,
+        'password-forge': initPasswordForge,
     };
 
     if (initializers[projectName]) {
@@ -1981,9 +1991,6 @@ function initEmojiMemoryGame() {
         });
     }
 
-    calculateBtn.addEventListener('click', calculateFlames);
-    name1Input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') calculateFlames();
     
     function showSequence() {
         isPlayingSequence = true;
@@ -2103,7 +2110,7 @@ function initEmojiMemoryGame() {
 
 // ============================================
 // COLLATZ CONJECTURE
-// ============================================
+// ===========================================
 function getCollatzHTML() {
     return `
         <div class="project-content">
