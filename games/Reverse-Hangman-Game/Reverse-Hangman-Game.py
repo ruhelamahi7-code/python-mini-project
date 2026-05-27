@@ -22,17 +22,17 @@ while True:
     print("DICTIONARY PREVIEW:", ", ".join(WORDS[:5]) + " ...")
 
     while True:
-        secret_word = input("\n📝 Enter your secret word: ").lower().strip()
-        if not secret_word.isalpha():
+        target_word = input("\n📝 Enter your target word: ").lower().strip()
+        if not target_word.isalpha():
             print("⚠️ Invalid input. Please enter letters only.")
             continue
-        if secret_word not in WORDS:
+        if target_word not in WORDS:
             print("⚠️ Word not found in the dictionary.")
             continue
         break
 
     print("\n🚀 REVERSE HANGMAN STARTED!!!\n")
-    pattern = "_" * len(secret_word)
+    pattern = "_" * len(target_word)
     guessed_letters = set()
     wrong_letters = set()
     attempts_left = MAX_ATTEMPTS
@@ -41,8 +41,8 @@ while True:
     while attempts_left > 0 and "_" in pattern:
         # Get possible words
         possible_words = []
-        if len(secret_word) in WORDS_BY_LENGTH:
-            for word in WORDS_BY_LENGTH[len(secret_word)]:
+        if len(target_word) in WORDS_BY_LENGTH:
+            for word in WORDS_BY_LENGTH[len(target_word)]:
                 valid = True
                 for i in range(len(word)):
                     if pattern[i] != "_" and word[i] != pattern[i]:
@@ -75,12 +75,12 @@ while True:
         guessed_letters.add(guess)
         print(f"🤖 Computer guesses: {guess.upper()}")
 
-        if guess in secret_word:
+        if guess in target_word:
             print("✅ Correct guess!")
             # Update pattern
             pattern_list = list(pattern)
-            for i in range(len(secret_word)):
-                if secret_word[i] == guess:
+            for i in range(len(target_word)):
+                if target_word[i] == guess:
                     pattern_list[i] = guess
             pattern = "".join(pattern_list)
         else:
@@ -97,7 +97,7 @@ while True:
     else:
         print("💀 Computer failed to guess the word.")
         
-    print(f"💡 Your secret word was: {secret_word.upper()}")
+    print(f"💡 Your target word was: {target_word.upper()}")
 
     while True:
         choice = input("\n🔄 Wanna play again? (y/n): ").lower().strip()
