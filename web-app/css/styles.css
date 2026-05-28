@@ -436,7 +436,7 @@ body.sidebar-active .sidebar-dock {
 /* Sidebar Controls bounce */
 .sidebar-controls button {
   position: relative;
-  transition: all var(--duration-fast) ease;
+  transition: all var(--duration-fast) ease-in;
 }
 .sidebar-controls button i {
   transition: transform var(--duration-fast) cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -452,7 +452,7 @@ body.sidebar-active .sidebar-dock {
   width: 20px;
   height: 20px;
   color: var(--text-tertiary);
-  transition: all var(--duration-fast) ease;
+  transition: all var(--duration-fast) ease-in;
 }
 
 .sidebar-menu .sidebar-tab:hover .sidebar-icon,
@@ -483,7 +483,7 @@ body.sidebar-active .sidebar-dock {
 .sidebar-controls .theme-toggle {
   flex: 1;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--bg-glass);
   border: 1px solid var(--border);
   color: var(--text-secondary);
@@ -557,7 +557,7 @@ body.sidebar-active .sidebar-dock {
   justify-content: center;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
-  transition: all var(--duration-fast) ease;
+  transition: all var(--duration-fast) ease-in;
 }
 
 [data-theme='light'] .hero-control-btn {
@@ -573,10 +573,10 @@ body.sidebar-active .sidebar-dock {
 }
 
 .hero-control-btn i {
-  transition: transform var(--duration-fast) cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--duration-fast) ease-in;
 }
 .hero-control-btn:hover i {
-  transform: scale(1.18) rotate(8deg);
+  transform: scale(1.18);
 }
 
 /* Hide controls when sidebar is visible */
@@ -715,7 +715,7 @@ body.sidebar-active .hero-controls {
 .sound-toggle i {
   color: #14b8a6; /* Neon Teal */
   filter: drop-shadow(0 0 6px rgba(20, 184, 166, 0.45));
-  transition: all var(--duration-fast) ease;
+  transition: all var(--duration-fast) ease-in;
 }
 
 .sound-toggle.muted i,
@@ -801,7 +801,7 @@ body.sidebar-active .hero-controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--duration-fast) ease;
+  transition: all var(--duration-fast) ease-in;
 }
 
 .sound-toggle:hover,
