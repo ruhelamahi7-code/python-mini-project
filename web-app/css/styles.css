@@ -6218,3 +6218,9 @@ html[data-theme="dark"] body {
 
   transition: width 0.08s linear;
 }
+/* Smooth sidebar enter/exit on index page scroll */
+.sidebar-dock {
+  transition:
+    transform var(--duration-slow, 500ms) cubic-bezier(0.16, 1, 0.3, 1),
+    opacity   var(--duration-slow, 500ms) cubic-bezier(0.16, 1, 0.3, 1);
+}
