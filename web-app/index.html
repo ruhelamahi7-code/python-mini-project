@@ -402,7 +402,6 @@
                 </div>
             </div>
         </template>
-  </div>
 
   <div class="sidebar-menu-wrapper">
     <div class="sidebar-menu-title">Categories</div>
@@ -835,8 +834,6 @@
     var guards = [
       '#projectsSection',   /* entire projects grid area */
       '#projectsGrid',
-      '.project-card',
-      '.btn-play',
       '.modal',             /* project modal */
       '#projectModal',
       '.modal-content',
@@ -851,7 +848,7 @@
           if (document.body.classList.contains('sidebar-active')) {
             e.stopPropagation();
           }
-        }, true /* capture — runs before main.js bubble handler */);
+        }, false /* bubble — runs after target target bubble handlers */);
       });
     });
 
@@ -865,7 +862,7 @@
             if (document.body.classList.contains('sidebar-active')) {
               e.stopPropagation();
             }
-          }, true);
+          }, false);
         });
       });
     });

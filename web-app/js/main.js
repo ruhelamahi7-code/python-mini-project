@@ -2,6 +2,8 @@
    main.js — App wiring for Premium Python Projects Gallery
    ═══════════════════════════════════════════════════════════════ */
 
+import { updateProjectVisibility } from "./modules/utils.js";
+
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
@@ -136,6 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var footerNode = document.querySelector("footer.footer");
     var backToTopNode = document.getElementById("backToTop");
     var infoModalNode = document.getElementById("infoModalOverlay");
+    var projectModalNode = document.getElementById("projectModal");
     var sidebarDockNode = document.getElementById("mainSidebar");
     var mobileToggleNode = document.getElementById("mobileSidebarToggle");
     var heroControlsNode = document.querySelector(".hero-controls");
@@ -147,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (footerNode) fragment.appendChild(footerNode);
     if (backToTopNode) fragment.appendChild(backToTopNode);
     if (infoModalNode) fragment.appendChild(infoModalNode);
+    if (projectModalNode) fragment.appendChild(projectModalNode);
     if (heroControlsNode) heroControlsNode.remove();
 
     document.body.appendChild(fragment);
@@ -1018,8 +1022,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   renderRecentSearches();
-});
-/* ═══════════════════════════════════════════════════════════════
+
+  /* ═══════════════════════════════════════════════════════════════
       MODAL
     ═══════════════════════════════════════════════════════════════ */
 function getFocusableElements(root) {
@@ -1062,7 +1066,7 @@ function openProjectSafe(name, trigger) {
   var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
   document.body.style.paddingRight = scrollbarWidth + "px";
   document.body.style.overflow = "hidden";
-  window.setMainInert(true);
+  setMainInert(true);
 
   safeRun(function () {
     if (typeof getProjectHTML === "function") {
@@ -1145,7 +1149,7 @@ function closeProjectSafe() {
   modal.setAttribute("aria-hidden", "true");
   document.body.style.paddingRight = "";
   document.body.style.overflow = "";
-  window.setMainInert(false);
+  setMainInert(false);
   if (removeTrap) {
     removeTrap();
     removeTrap = null;
@@ -1172,6 +1176,7 @@ document.addEventListener("keydown", function (e) {
 /* ── Expose for inline use ────────────────────────────────── */
 window.openProjectSafe = openProjectSafe;
 window.closeProjectSafe = closeProjectSafe;
+window.setMainInert = setMainInert;
 
 /* ═══════════════════════════════════════════════════════════════
      WIRE PROJECT CARDS
@@ -1645,3 +1650,4 @@ if (progressBar) {
   // Initial card filtering state update
   updateProjectVisibility(currentCategory, currentSearchQuery);
 });
+
