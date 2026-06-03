@@ -1,5 +1,5 @@
 function getArmstrongHTML() {
-    return `
+  return `
         <div class="project-content">
             <h2>💎 Armstrong Number Checker</h2>
             <p class="project-desc">Check if a number equals the sum of its digits raised to the power of the number of digits</p>
@@ -161,55 +161,63 @@ function getArmstrongHTML() {
 }
 
 function initArmstrong() {
-    const numberInput = document.getElementById('armstrongNumber');
-    const checkBtn = document.getElementById('checkArmstrong');
-    const resultDiv = document.getElementById('armstrongResult');
-    const exampleBtns = document.querySelectorAll('.example-btn');
+  const numberInput = document.getElementById("armstrongNumber");
+  const checkBtn = document.getElementById("checkArmstrong");
+  const resultDiv = document.getElementById("armstrongResult");
+  const exampleBtns = document.querySelectorAll(".example-btn");
 
-    function showError(msg) {
-        resultDiv.textContent = `
-            <p style="color: var(--danger-color); font-weight: 600;">
-                ⚠️ ${msg}
-            </p>
-        `;
+  function showError(msg) {
+    // 1. Safely clear the div
+    resultDiv.innerHTML = "";
+
+    // 2. Create the paragraph element in memory
+    const errorText = document.createElement("p");
+    errorText.style.color = "var(--danger-color)";
+    errorText.style.fontWeight = "600";
+
+    // 3. Inject the message using textContent (this neutralizes any scripts!)
+    errorText.textContent = `⚠️ ${msg}`;
+
+    // 4. Append the safe element to the DOM
+    resultDiv.appendChild(errorText);
+  }
+
+  function checkArmstrong() {
+    const raw = numberInput.value.trim();
+
+    // ❌ Empty input check
+    if (raw === "") {
+      showError("Please enter a number!");
+      return;
     }
 
-    function checkArmstrong() {
-        const raw = numberInput.value.trim();
+    const num = Number(raw);
 
-        // ❌ Empty input check
-        if (raw === '') {
-            showError("Please enter a number!");
-            return;
-        }
+    // ❌ Invalid number check (NaN, decimals, negatives)
+    if (!Number.isFinite(num) || num < 0 || !Number.isInteger(num)) {
+      showError("Please enter a valid positive integer!");
+      return;
+    }
 
-        const num = Number(raw);
+    const numStr = String(num);
+    const digits = numStr.split("").map(Number);
+    const power = digits.length;
 
-        // ❌ Invalid number check (NaN, decimals, negatives)
-        if (!Number.isFinite(num) || num < 0 || !Number.isInteger(num)) {
-            showError("Please enter a valid positive integer!");
-            return;
-        }
+    let sum = 0;
+    const calculations = [];
 
-        const numStr = String(num);
-        const digits = numStr.split('').map(Number);
-        const power = digits.length;
+    digits.forEach((d) => {
+      const p = Math.pow(d, power);
+      sum += p;
+      calculations.push({ digit: d, power: p });
+    });
 
-        let sum = 0;
-        const calculations = [];
+    const isArmstrong = sum === num;
 
-        digits.forEach(d => {
-            const p = Math.pow(d, power);
-            sum += p;
-            calculations.push({ digit: d, power: p });
-        });
-
-        const isArmstrong = sum === num;
-
-        resultDiv.textContent = `
+    resultDiv.innerHTML = `
             <div class="armstrong-result">
-                <div class="result-header ${isArmstrong ? 'is-armstrong' : 'not-armstrong'}">
-                    ${isArmstrong ? '✅ Armstrong Number!' : '❌ Not an Armstrong Number'}
+                <div class="result-header ${isArmstrong ? "is-armstrong" : "not-armstrong"}">
+                    ${isArmstrong ? "✅ Armstrong Number!" : "❌ Not an Armstrong Number"}
                 </div>
 
                 <div class="calculation-steps">
@@ -219,20 +227,25 @@ function initArmstrong() {
                 </div>
 
                 <div class="digit-breakdown">
-                    ${calculations.map(c => `
+                    ${calculations
+                      .map(
+                        (c) => `
                         <div class="digit-card">
                             <div class="digit-value">${c.digit}</div>
                             <div class="digit-power">${c.digit}^${power} = ${c.power}</div>
                         </div>
-                    `).join('')}
+                    `
+                      )
+                      .join("")}
                 </div>
 
                 <div class="calculation-steps">
                     <div class="step">
-                        <strong>Sum:</strong> ${calculations.map(c => c.power).join(' + ')} = ${sum}
+                        <strong>Sum:</strong> ${calculations.map((c) => c.power).join(" + ")} = ${sum}
                     </div>
                     <div class="step">
-                        ${isArmstrong
+                        ${
+                          isArmstrong
                             ? `<span style="color: var(--success-color);">✓ ${sum} = ${num}</span>`
                             : `<span style="color: var(--danger-color);">✗ ${sum} ≠ ${num}</span>`
                         }
@@ -240,23 +253,23 @@ function initArmstrong() {
                 </div>
             </div>
         `;
+  }
+
+  // Click event
+  checkBtn.addEventListener("click", checkArmstrong);
+
+  // Enter key support
+  numberInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      checkArmstrong();
     }
+  });
 
-    // Click event
-    checkBtn.addEventListener('click', checkArmstrong);
-
-    // Enter key support
-    numberInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            checkArmstrong();
-        }
+  // Example buttons
+  exampleBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      numberInput.value = btn.dataset.num;
+      checkArmstrong();
     });
-
-    // Example buttons
-    exampleBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            numberInput.value = btn.dataset.num;
-            checkArmstrong();
-        });
-    });
+  });
 }
