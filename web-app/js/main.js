@@ -886,30 +886,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     
-    resultsList.innerHTML = '';
-    matches.slice(0, 8).forEach((project, index) => {
-        const item = document.createElement('button');
-        item.type = 'button';
-        item.className = 'dropdown-item' + (index === selectedSuggestionIndex ? ' selected' : '');
-        item.setAttribute('aria-label', `Select ${project.title}`);
-        item.innerHTML = `
-            <div class="dropdown-item-icon">
-                ${project.card.querySelector('.card-icon').textContent}
-            </div>
-            <div class="dropdown-item-text">${highlightMatch(project.title, query)}</div>
-            <span class="dropdown-item-tag">${project.category}</span>
-        `;
-        item.addEventListener('click', () => selectSuggestion(project.title));
-        item.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                selectSuggestion(project.title);
-            }
-        });
-        item.addEventListener('mouseenter', () => {
-            selectedSuggestionIndex = index;
-            updateSuggestionHighlight();
-
     if (noResultsMessage) noResultsMessage.style.display = "none";
 
     if (resultsList) {
