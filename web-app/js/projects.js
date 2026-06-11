@@ -22,7 +22,8 @@ function getProjectHTML(projectName) {
         'morse-code': getMorseCodeHTML(),
         'tower-of-hanoi': getTowerOfHanoiHTML(),
         'nqueens' : getNQueensHTML(),
-        'matrix-calculator': () => getMatrixCalculatorHTML()
+        'matrix-calculator': () => getMatrixCalculatorHTML(),
+        'unit-converter': getUnitConverterHTML(),
     };
     
     return projects[projectName] || '<h2>Project Coming Soon!</h2>';
@@ -49,7 +50,8 @@ function initializeProject(projectName) {
         'morse-code': initMorseCode,
         'tower-of-hanoi': initTowerOfHanoi,
         'nqueens' : initNQueens(),
-        'matrix-calculator': initMatrixCalculator
+        'matrix-calculator': initMatrixCalculator,
+        'unit-converter':initUnitConverter,
     };
     
     if (initializers[projectName]) {
