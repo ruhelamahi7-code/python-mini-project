@@ -397,6 +397,52 @@ def generate_banner(name, category, filename):
                 v_draw.text((x, y), sample_nums[i][j], fill=color_accent, anchor="mm", font=font_title)
         # Draw operation symbol
         v_draw.text((400, 280), "×", fill=color_accent, anchor="mm", font=font_title)
+
+    elif "unit converter" in n_lower:
+        cx, cy = 400, 225
+
+        # Circular conversion flow
+        v_draw.arc([250, 75, 550, 375], 30, 330,
+                fill=color_accent, width=4)
+
+        # Arrow head
+        v_draw.polygon(
+            [(530, 135), (555, 120), (545, 150)],
+            fill=color_accent
+        )
+
+        # Measurement symbols
+        symbols = [
+            ("📏", 400, 110),   # Length
+            ("⚖", 520, 225),    # Weight
+            ("🌡", 400, 340),    # Temperature
+            ("⏱", 280, 225)     # Time
+        ]
+
+        for sym, x, y in symbols:
+            v_draw.rounded_rectangle(
+                [x-35, y-35, x+35, y+35],
+                radius=12,
+                fill=(255,255,255,12),
+                outline=color_accent,
+                width=2
+            )
+            v_draw.text((x, y), sym,
+                        fill=color_accent,
+                        anchor="mm")
+
+        # Center convert icon
+        v_draw.rounded_rectangle(
+            [350, 175, 450, 275],
+            radius=18,
+            fill=(255,255,255,16),
+            outline=color_accent,
+            width=3
+        )
+        v_draw.text((400,225), "⇄",
+                    fill=color_accent,
+                    anchor="mm")
+    
     elif "pet" in n_lower or "productivity" in n_lower:
         # Cute paw print
         cx, cy = 400, 225
@@ -501,6 +547,7 @@ projects = [
     ("Color Palette Suggestor", "utilities", "color-palette.webp"),
     ("AI Resume Analyzer", "utilities", "resume-analyzer.webp"),
     ("Caesar Cipher", "utilities", "caesar-cipher.webp"),
+    ("Unit Converter", "utilities", "unit-converter.webp"),
 ]
 
 # Run generation
