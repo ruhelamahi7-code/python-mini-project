@@ -4,7 +4,7 @@
 // No API calls — pure client-side text analysis.
 // ============================================
 
-function getAIResumeAnalyzerHTML() {
+function getResumeAnalyzerHTML() {
     return `
         <div class="resume-analyzer-shell">
             <div class="resume-analyzer-hero">
@@ -58,7 +58,7 @@ function getAIResumeAnalyzerHTML() {
     `;
 }
 
-function initAIResumeAnalyzer() {
+function initResumeAnalyzer() {
     const analyzeBtn      = document.getElementById('analyzeBtn');
     const resumeInput     = document.getElementById('resumeInput');
     const fileStatus      = document.getElementById('resumeFileStatus');

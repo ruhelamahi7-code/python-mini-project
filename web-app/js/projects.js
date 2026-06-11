@@ -24,6 +24,7 @@ function getProjectHTML(projectName) {
         'nqueens' : getNQueensHTML(),
         'matrix-calculator': () => getMatrixCalculatorHTML(),
         'unit-converter': getUnitConverterHTML(),
+        'resume-analyzer': getResumeAnalyzerHTML(),
     };
     
     return projects[projectName] || '<h2>Project Coming Soon!</h2>';
@@ -52,6 +53,7 @@ function initializeProject(projectName) {
         'nqueens' : initNQueens(),
         'matrix-calculator': initMatrixCalculator,
         'unit-converter':initUnitConverter,
+        'resume-analyzer':initResumeAnalyzer,
     };
     
     if (initializers[projectName]) {
@@ -3122,7 +3124,7 @@ function initializeProject(projectName) {
     "2048-game": "init2048Game",
     "color-palette": "initColorPalette",
     "math-quiz": "initMathQuiz",
-    "resume-analyzer": "initAIResumeAnalyzer",
+    "resume-analyzer": "initResumeAnalyzer",
     "caesar-cipher": "initCaesarCipher"
   };
 
