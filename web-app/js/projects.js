@@ -1729,6 +1729,16 @@ const projectInstructions = {
       "Beat the dealer to win"
     ]
   },
+  "reverse-hangman": {
+  title: "🤖 How to Play Reverse Hangman",
+  steps: [
+    "Think of a secret word from the dictionary (40+ words available)",
+    "The AI tries to guess your word using letter frequency analysis",
+    "Tell the AI if its guess is correct or not",
+    "AI gets 8 attempts max — can you beat the computer?",
+    "Watch the hangman visual feedback as AI guesses"
+  ]
+},
 
   // MATH
   "calculator": {
@@ -1832,6 +1842,16 @@ const projectInstructions = {
       "Click Recognize to identify the sequence type"
     ]
   },
+  "matrix-calculator": {
+    title: "🧮 How to Use Matrix Calculator",
+    steps: [
+        "Select matrix dimensions (rows × columns)",
+        "Enter values into each cell",
+        "Choose operation: Addition, Subtraction, Multiplication, Transpose, Determinant, Rank, or Inverse",
+        "Click Calculate to see the result",
+        "Determinant & Inverse work only for square matrices"
+    ]
+  },
 
   // UTILITIES
   "color-palette": {
@@ -1909,7 +1929,17 @@ const projectInstructions = {
       "Mark projects as complete",
       "See your progress over time"
     ]
-  }
+  },
+  "unit-converter": {
+    title: "📏 How to Use Unit Converter",
+    steps: [
+        "Select conversion category (Length, Mass, Temperature, etc.)",
+        "Choose input and output units",
+        "Enter the value to convert",
+        "Result appears instantly",
+        "Supports multiple unit types"
+  ]
+}
 };
 
 function getProjectInstructions(projectName) {
