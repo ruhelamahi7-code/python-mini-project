@@ -395,6 +395,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  /* ── Mobile Sidebar Toggle ────────────────────────────────── */
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      document.body.classList.toggle("sidebar-active");
+    });
+  }
+
+  document.addEventListener("click", function (e) {
+    if (window.innerWidth < 1100) {
+      var isClickInsideSidebar = mainSidebar && mainSidebar.contains(e.target);
+      var isClickOnToggle = mobileMenuToggle && mobileMenuToggle.contains(e.target);
+      if (!isClickInsideSidebar && !isClickOnToggle && document.body.classList.contains("sidebar-active")) {
+        document.body.classList.remove("sidebar-active");
+      }
+    }
+  });
+
   if (backToTopButton) {
     var toggleBackToTop = function () {
       backToTopButton.classList.toggle("visible", window.scrollY > 300);
@@ -576,6 +594,11 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ── Sidebar Tabs ─────────────────────────────────────────── */
   sidebarTabs.forEach(function (st) {
     st.addEventListener("click", function () {
+      if (window.innerWidth < 1100) {
+        document.body.classList.remove("sidebar-active");
+      }
+    });
+    st.addEventListener("click", function () {
       var category = st.getAttribute("data-category");
 
       var pageCategory = document.body.getAttribute("data-page");
@@ -720,18 +743,21 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ── Sidebar Active Scroll Observer ───────────────────────── */
   if (!pageCategory && projectsSection) {
     console.log('Setting up sidebar observer');
-
+ 
     const checkAndToggleSidebar = () => {
+      if (window.innerWidth < 1100) {
+        return;
+      }
       const rect = projectsSection.getBoundingClientRect();
       // Show sidebar when projects section is in view AND we're scrolled past hero
       const heroSection = document.querySelector('.hero-section');
       const heroBottom = heroSection ? heroSection.getBoundingClientRect().bottom : 0;
       const showSidebar = rect.top < window.innerHeight && window.scrollY > heroBottom - 100;
-
+ 
       document.body.classList.toggle("sidebar-active", showSidebar);
       console.log('Sidebar active:', showSidebar, 'scrollY:', window.scrollY);
     };
-
+ 
     window.addEventListener('scroll', checkAndToggleSidebar);
     checkAndToggleSidebar();
   }
@@ -1232,6 +1258,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function closeProjectSafe() {
     if (!modal) return;
+    if (!modal.classList.contains("active")) return;
 
     modal.classList.remove("active");
     modal.setAttribute("aria-hidden", "true");
@@ -1254,9 +1281,10 @@ document.addEventListener("DOMContentLoaded", function () {
       modalTitle.textContent = "";
     }
 
-    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+    var elementToFocus = lastFocusedElement;
+    if (elementToFocus && typeof elementToFocus.focus === "function") {
       setTimeout(function () {
-        lastFocusedElement.focus({ preventScroll: true });
+        elementToFocus.focus({ preventScroll: true });
       }, 50);
     }
     lastFocusedElement = null;
