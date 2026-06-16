@@ -1,4 +1,4 @@
-﻿// Project Registry
+// Project Registry
 // Each project's HTML and logic lives in its own file under js/projects/
 
 function getProjectHTML(projectName) {
@@ -1595,6 +1595,15 @@ function getProjectHTML(projectName) {
 
 const projectInstructions = {
   // GAMES
+  "number-sliding-puzzle": {
+    title: "🧩 How to Play Number Sliding Puzzle",
+    steps: [
+      "Use arrow keys (← ↑ → ↓) or click/tap on tiles next to the empty space to slide them.",
+      "Arrange the numbers in ascending order from 1 to 8, with the blank space at the bottom right.",
+      "A moves counter keeps track of your steps.",
+      "Click the Reset button to restart the game."
+    ]
+  },
   "2048-game": {
     title: "🎮 How to Play 2048",
     steps: [
@@ -3127,7 +3136,8 @@ function initializeProject(projectName) {
     "color-palette": "initColorPalette",
     "math-quiz": "initMathQuiz",
     "resume-analyzer": "initResumeAnalyzer",
-    "caesar-cipher": "initCaesarCipher"
+    "caesar-cipher": "initCaesarCipher",
+    "number-sliding-puzzle": "initNumberSlidingPuzzle"
   };
 
   const initializerName = initializers[projectName];
