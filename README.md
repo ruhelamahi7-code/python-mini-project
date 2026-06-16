@@ -234,7 +234,7 @@ deactivate
 
 ## 🌐 Web App Catalog
 
-The browser app currently exposes 38 projects:
+The browser app currently exposes 39 projects:
 
 ### Games
 - 2048 Game
@@ -255,6 +255,7 @@ The browser app currently exposes 38 projects:
 - Whack-a-Mole
 - Word Scramble
 - Spot the Difference
+- Number Sliding Puzzle
 
 ### Math
 - AP/GP/AGP/HP Recognizer
@@ -284,7 +285,6 @@ The browser app currently exposes 38 projects:
 
 These standalone Python project files do not have a browser counterpart yet and are good future-port candidates:
 
-- [games/Number-Sliding-Puzzle/Number-Sliding-Puzzle.py](games/Number-Sliding-Puzzle/Number-Sliding-Puzzle.py)
 - [games/Reverse-Hangman-Game/Reverse-Hangman-Game.py](games/Reverse-Hangman-Game/Reverse-Hangman-Game.py)
 - [games/War-Card-Game/War-Card-Game.py](games/War-Card-Game/War-Card-Game.py)
 - [math/Happy-Number/Happy-Number.py](math/Happy-Number/Happy-Number.py)
