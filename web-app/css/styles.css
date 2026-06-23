@@ -1948,7 +1948,7 @@ body.sidebar-active .sidebar-dock {
 }
 
 /* ── Desktop Sidebar-Aware Project Layout ───────────────────── */
-@media (min-width: 1100px) {
+@media (min-width: 768px) {
   .projects-section {
     max-width: none !important;
     width: 100% !important;
@@ -3576,7 +3576,7 @@ body.sidebar-collapsed .playground-section {
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 768px) {
   body.sidebar-active:not(.sidebar-collapsed) .footer {
     padding-left: 296px !important;
     padding-right: 24px !important;
@@ -5560,6 +5560,7 @@ button:focus-visible,
     0 10px 0 rgba(128, 104, 85, 0.08),
     0 14px 28px rgba(0, 0, 0, 0.08);
   background: rgba(255, 255, 255, 0.95);
+  color: #0c0f1a;
 }
 
 .btn-secondary-hero:active {
@@ -6622,11 +6623,11 @@ body.sidebar-collapsed .sidebar-dock .sidebar-footer .sidebar-main-controls {
 
 /*
  * Desktop sidebar-aware layout keeps the projects section shifted past the
- * fixed sidebar dock (see the @media (min-width: 1100px) block above for
+ * fixed sidebar dock (see the @media (min-width: 768px) block above for
  * padding-left values). The rules below intentionally only apply on mobile,
  * where the sidebar slides in as a drawer and must not push the main column.
  */
-@media (max-width: 1099px) {
+@media (max-width: 767px) {
   .projects-section {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -6641,9 +6642,8 @@ body.sidebar-collapsed .sidebar-dock .sidebar-footer .sidebar-main-controls {
 
 /* Smooth main-content shift when the sidebar opens, closes, or collapses on
  * desktop. The padding-left values themselves are defined above inside the
- * 1100px media query. */
-@media (min-width: 1100px) {
-
+ * 768px media query. */
+@media (min-width: 768px) {
   .projects-section,
   .hero-section,
   .hero-timeline-section,
