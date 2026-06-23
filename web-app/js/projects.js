@@ -1,52 +1,43 @@
-﻿// Project Registry
+// Project Registry
 // Each project's HTML and logic lives in its own file under js/projects/
 
 function getProjectHTML(projectName) {
     const projects = {
-        'tic-tac-toe': () => getTicTacToeHTML(),
-        'rock-paper-scissor': () => getRockPaperScissorHTML(),
-        'dice-rolling': () => getDiceRollingHTML(),
-        'coin-flip': () => getCoinFlipHTML(),
-        'blackjack(21)' : () => getBlackjackHTML(),
-        'number-guessing': () => getNumberGuessingHTML(),
-        'hangman': () => getHangmanHTML(),
-        'word-scramble': () => getWordScrambleHTML(),
-        'flames': () => getFlamesHTML(),
-        'dots-boxes': () => getDotsBoxesHTML(),
-        'emoji-memory': () => getEmojiMemoryGameHTML(),
-        'fibonacci': () => getFibonacciHTML(),
-        'progression-recognizer': () => getProgressionRecognizerHTML(),
-        'pascal-triangle': () => getPascalTriangleHTML(),
-        'armstrong': () => getArmstrongHTML(),
-        'calculator': () => getCalculatorHTML(),
-        'collatz': () => getCollatzHTML(),
-        'prime-analyzer': () => getPrimeAnalyzerHTML(),
-        'projectile-motion': () => getProjectileMotionHTML(),
-        'coordinate-polar-transform': () => getCoordinatePolarTransformHTML(),
-        'derivative-calculator': () => getDerivativeCalculatorHTML(),
-        'morse-code': () => getMorseCodeHTML(),
-        'tower-of-hanoi': () => getTowerOfHanoiHTML(),
-        'number-converter': () => getNumberConverterHTML(),
-        'typing-speed-tester': () => getTypingSpeedTesterHTML(),
-        'snake-game': () => getsnakeGameHTML(),
-        'password-forge': () => getPasswordForgeHTML(),
-        'math-quiz': () => getMathQuizHTML(),
-        'whack-a-mole': () => getWhackaMoleHTML(),
-        'simon-says': () => getSimonSaysHTML(),
-        'spot-the-difference': () => getSpotTheDifferenceHTML(),
-        'flappy-game': () => getFlappyGameHTML(),
-        '2048-game': () => get2048GameHTML(),
-        "productive-pet": () => getProductivePetHTML(),
-        'color-palette': () => getColorPaletteHTML(),
+        'rock-paper-scissor': getRockPaperScissorHTML(),
+        'dice-rolling': getDiceRollingHTML(),
+        'coin-flip': getCoinFlipHTML(),
+        'number-guessing': getNumberGuessingHTML(),
+        'hangman': getHangmanHTML(),
+        'flames': getFlamesHTML(),
+        'fibonacci': getFibonacciHTML(),
+        'progression-recognizer': getProgressionRecognizerHTML(),
+        'pascal-triangle': getPascalTriangleHTML(),
+        'armstrong': getArmstrongHTML(),
+        'calculator': getCalculatorHTML(),
+        'collatz': getCollatzHTML(),
+        'prime-analyzer': getPrimeAnalyzerHTML(),
+        'projectile-motion': getProjectileMotionHTML(),
+        'coordinate-polar-transform': getCoordinatePolarTransformHTML(),
+        'derivative-calculator': getDerivativeCalculatorHTML(),
+        'morse-code': getMorseCodeHTML(),
+        'tower-of-hanoi': getTowerOfHanoiHTML(),
+        'nqueens' : getNQueensHTML(),
+        'matrix-calculator': () => getMatrixCalculatorHTML(),
+        'sudoku-game': getSudokuGameHTML(),
+        'unit-converter': getUnitConverterHTML(),
+        'resume-analyzer': getResumeAnalyzerHTML(),
+        'reverse-hangman': () => getReverseHangmanHTML,
+        'budget-tracker': getBudgetTrackerHTML(),
+        'snake-game': getSnakeGameHTML(),
+        'bubble-sort': getBubbleSortHTML(),
+        'quick-sort': getQuickSortHTML(),
+        'fourier-series': getFourierSeriesHTML(),
+        'merge-sort': getMergeSortHTML(),
+        'pathfinding-visualizer': getPathfindingVisualizerHTML(),
+        'tsp-visualizer': getTspVisualizerHTML()
     };
-
-    try {
-        // Only execute the function if it exists in our dictionary
-        return projects[projectName] ? projects[projectName]() : '<h2>Project Coming Soon!</h2>';
-    } catch (error) {
-        console.warn(`Project missing or not loaded: ${projectName}`, error);
-        return '<h2>Project Coming Soon!</h2>';
-    }
+    
+    return projects[projectName] || '<h2>Project Coming Soon!</h2>';
 }
 
 function initializeProject(projectName) {
@@ -54,7 +45,6 @@ function initializeProject(projectName) {
         'rock-paper-scissor': initRockPaperScissor,
         'dice-rolling': initDiceRolling,
         'coin-flip': initCoinFlip,
-        'blackjack(21)' : initBlackjack,
         'number-guessing': initNumberGuessing,
         'hangman': initHangman,
         'flames': initFlames,
@@ -69,7 +59,18 @@ function initializeProject(projectName) {
         'coordinate-polar-transform': initCoordinatePolarTransform,
         'derivative-calculator': initDerivativeCalculator,
         'morse-code': initMorseCode,
-        'tower-of-hanoi': initTowerOfHanoi
+        'tower-of-hanoi': initTowerOfHanoi,
+        'nqueens' : initNQueens,
+        'matrix-calculator': initMatrixCalculator,
+        'sudoku-game': initSudokuGame,
+        'unit-converter': initUnitConverter,
+        'resume-analyzer': initResumeAnalyzer,
+        'reverse-hangman': initReverseHangman,
+        'budget-tracker': initBudgetTracker,
+        'fourier-series': initFourierSeries,
+        'merge-sort': initMergeSort,
+        'pathfinding-visualizer': initPathfindingVisualizer,
+        'tsp-visualizer': initTspVisualizer
     };
     
     if (initializers[projectName]) {
@@ -771,7 +772,7 @@ function initCoinFlip() {
 
     function setCoinFace(isHeads, seed) {
         const targetY = isHeads ? 0 : 180;
-        const flipX = 360 * (4 + (seed % 3));
+        const flipX = 360 * (4 + (seed % 3)) + 90;
         const flipY = 360 * (3 + (seed % 2)) + targetY;
         coin.style.setProperty('--flip-x', `${flipX}deg`);
         coin.style.setProperty('--flip-y', `${flipY}deg`);
@@ -814,237 +815,6 @@ function initCoinFlip() {
 
 // Continue with more projects in next message...
 // Additional Project Implementations
-
-
-// ============================================
-// BLACKJACK (21)
-// ============================================
-function getBlackjackHTML() {
-    return `
-        <div class="project-content">
-            <h2>🃏 BlackJack (21)</h2>
-            <div class="blackjack-container">
-                <div class="dealer-area">
-                    <h3>Dealer's Hand (<span id="dealerScore">?</span>)</h3>
-                    <div id="dealerCards" class="cards-display"></div>
-                </div>
-                
-                <div class="game-message" id="blackjackMessage">Game Starting...</div>
-                
-                <div class="player-area">
-                    <h3>Your Hand (<span id="playerScore">0</span>)</h3>
-                    <div id="playerCards" class="cards-display"></div>
-                </div>
-
-                <div class="controls">
-                    <button class="btn-play" id="btnHit">Hit</button>
-                    <button class="btn-play" id="btnStand">Stand</button>
-                    <button class="btn-play" style="display:none;" id="btnRestart">Play Again</button>
-                </div>
-            </div>
-        </div>
-        
-        <style>
-            .blackjack-container {
-                text-align: center;
-                padding: 1rem 2rem 3rem;
-            }
-            .cards-display {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                justify-content: center;
-                margin: 15px 0;
-                min-height: 85px;
-            }
-            .card-ui {
-                background: white;
-                color: black;
-                padding: 15px 20px;
-                border-radius: 8px;
-                font-size: 1.8rem;
-                font-weight: bold;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-                border: 1px solid #ccc;
-                min-width: 60px;
-            }
-            .card-ui.red {
-                color: #e53e3e;
-            }
-            .card-ui.hidden-card {
-                background: repeating-linear-gradient(45deg, #2d3748, #2d3748 10px, #4a5568 10px, #4a5568 20px);
-                color: transparent;
-            }
-            .game-message {
-                font-size: 1.8rem;
-                font-weight: bold;
-                margin: 25px 0;
-                color: var(--primary-color);
-                min-height: 3rem;
-            }
-            .controls {
-                display: flex;
-                gap: 15px;
-                justify-content: center;
-                margin-top: 30px;
-            }
-        </style>
-    `;
-}
-
-function initBlackjack() {
-    const deckTemplate = [
-        "A♠️", "2♠️", "3♠️", "4♠️", "5♠️", "6♠️", "7♠️", "8♠️", "9♠️", "10♠️", "J♠️", "Q♠️", "K♠️",
-        "A♥️", "2♥️", "3♥️", "4♥️", "5♥️", "6♥️", "7♥️", "8♥️", "9♥️", "10♥️", "J♥️", "Q♥️", "K♥️",
-        "A♦️", "2♦️", "3♦️", "4♦️", "5♦️", "6♦️", "7♦️", "8♦️", "9♦️", "10♦️", "J♦️", "Q♦️", "K♦️",
-        "A♣️", "2♣️", "3♣️", "4♣️", "5♣️", "6♣️", "7♣️", "8♣️", "9♣️", "10♣️", "J♣️", "Q♣️", "K♣️"
-    ];
-    
-    let deck = [];
-    let playerHand = [];
-    let dealerHand = [];
-    let playerCards = [];
-    let dealerCards = [];
-    
-    const btnHit = document.getElementById("btnHit");
-    const btnStand = document.getElementById("btnStand");
-    const btnRestart = document.getElementById("btnRestart");
-    const messageEl = document.getElementById("blackjackMessage");
-    const dealerCardsEl = document.getElementById("dealerCards");
-    const playerCardsEl = document.getElementById("playerCards");
-    const dealerScoreEl = document.getElementById("dealerScore");
-    const playerScoreEl = document.getElementById("playerScore");
-
-    // Replaces random.shuffle()
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    // Replaces check(rank)
-    function checkRank(rank) {
-        if (['Q', 'K', 'J'].includes(rank)) return 10;
-        if (rank === 'A') return 1;
-        return parseInt(rank);
-    }
-
-    // Replaces calculate(hand) and adds Ace logic (1 or 11)
-    function calculate(hand) {
-        let sum = 0;
-        let aces = 0;
-        for (let val of hand) {
-            sum += val;
-            if (val === 1) aces += 1;
-        }
-        while (aces > 0 && sum + 10 <= 21) {
-            sum += 10;
-            aces -= 1;
-        }
-        return sum;
-    }
-
-    // Helper to render card UI
-    function getCardHTML(cardStr, isHidden = false) {
-        if (isHidden) {
-            return `<div class="card-ui hidden-card">?</div>`;
-        }
-        const isRed = cardStr.includes("♥️") || cardStr.includes("♦️");
-        return `<div class="card-ui ${isRed ? 'red' : ''}">${cardStr}</div>`;
-    }
-
-    // Refresh the view
-    function updateUI(hideDealerCard = false) {
-        playerCardsEl.innerHTML = playerCards.map(card => getCardHTML(card)).join("");
-        playerScoreEl.textContent = calculate(playerHand);
-        
-        if (hideDealerCard && dealerCards.length > 0) {
-            dealerCardsEl.innerHTML = getCardHTML(dealerCards[0]) + getCardHTML(null, true);
-            dealerScoreEl.textContent = "?";
-        } else {
-            dealerCardsEl.innerHTML = dealerCards.map(card => getCardHTML(card)).join("");
-            dealerScoreEl.textContent = calculate(dealerHand);
-        }
-    }
-
-    function drawCard(isPlayer) {
-        const card = deck.pop();
-        const rankStr = card.slice(0, -2); // Replaces card[:-2]
-        const rankVal = checkRank(rankStr);
-        
-        if (isPlayer) {
-            playerCards.push(card);
-            playerHand.push(rankVal);
-        } else {
-            dealerCards.push(card);
-            dealerHand.push(rankVal);
-        }
-    }
-
-    function startGame() {
-        deck = [...deckTemplate];
-        shuffle(deck);
-        
-        playerHand = []; dealerHand = [];
-        playerCards = []; dealerCards = [];
-        
-        btnHit.style.display = "inline-block";
-        btnStand.style.display = "inline-block";
-        btnRestart.style.display = "none";
-        messageEl.textContent = "Your Turn! Hit or Stand?";
-        
-        drawCard(true); // Player
-        drawCard(false); // Dealer
-        drawCard(true); // Player
-        drawCard(false); // Dealer
-        
-        updateUI(true); // Hide dealer's second card initially
-    }
-    
-    function endGame(msg) {
-        messageEl.textContent = msg;
-        btnHit.style.display = "none";
-        btnStand.style.display = "none";
-        btnRestart.style.display = "inline-block";
-        updateUI(false); // Reveal dealer's hidden card
-    }
-
-    btnHit.addEventListener("click", () => {
-        drawCard(true);
-        updateUI(true);
-        
-        if (calculate(playerHand) > 21) {
-            endGame("Bust! You lose!");
-        }
-    });
-
-    btnStand.addEventListener("click", () => {
-        // Dealer draws until count is at least 17
-        while (calculate(dealerHand) < 17) {
-            drawCard(false);
-        }
-        
-        const pCount = calculate(playerHand);
-        const dCount = calculate(dealerHand);
-        
-        if (dCount > 21) {
-            endGame("Dealer Bust! You win!");
-        } else if (pCount === dCount) {
-            endGame("Draw!");
-        } else if (pCount > dCount) {
-            endGame("You win!");
-        } else {
-            endGame("Dealer wins!");
-        }
-    });
-    
-    btnRestart.addEventListener("click", startGame);
-
-    // Initialize first game automatically
-    startGame();
-}
-
 
 // ============================================
 // NUMBER GUESSING
@@ -1804,1649 +1574,463 @@ function getFlamesHTML() {
         </style>
     `;
 }
-
-function initFlames() {
-    const name1Input = document.getElementById('name1');
-    const name2Input = document.getElementById('name2');
-    const calculateBtn = document.getElementById('calculateFlames');
-    const resultDiv = document.getElementById('flamesResult');
-    
-    const relationshipData = {
-        'F': { name: 'Friends', emoji: '👫', message: 'You two are best friends forever!' },
-        'L': { name: 'Love', emoji: '❤️', message: 'True love is in the air!' },
-        'A': { name: 'Affection', emoji: '🥰', message: 'Sweet affection between you!' },
-        'M': { name: 'Marriage', emoji: '💍', message: 'Wedding bells are ringing!' },
-        'E': { name: 'Enemies', emoji: '😠', message: 'Maybe not the best match...' },
-        'S': { name: 'Siblings', emoji: '👨‍👩‍👧', message: 'Like brother and sister!' }
-    };
-    
-    function calculateFlames() {
-        const name1 = name1Input.value.toLowerCase().replace(/\s/g, '');
-        const name2 = name2Input.value.toLowerCase().replace(/\s/g, '');
-        
-        if (!name1 || !name2) {
-            resultDiv.innerHTML = '<p style="color: var(--danger-color);">⚠️ Please enter both names!</p>';
-            return;
-        }
-        
-        const originalName1 = name1Input.value.trim();
-        const originalName2 = name2Input.value.trim();
-        
-        // Convert to arrays
-        let name1List = name1.split('');
-        let name2List = name2.split('');
-        
-        // Remove common characters
-        const name1Copy = [...name1List];
-        for (let char of name1Copy) {
-            const index2 = name2List.indexOf(char);
-            if (index2 !== -1) {
-                name1List.splice(name1List.indexOf(char), 1);
-                name2List.splice(index2, 1);
-            }
-        }
-        
-        const count = name1List.length + name2List.length;
-        
-        // Calculate FLAMES
-        const flames = ['F', 'L', 'A', 'M', 'E', 'S'];
-        let index = 0;
-        
-        while (flames.length > 1) {
-            index = (index + count - 1) % flames.length;
-            flames.splice(index, 1);
-            if (index === flames.length && flames.length > 0) {
-                index = 0;
-            }
-        }
-        
-        const result = flames[0];
-        const relationship = relationshipData[result];
-        
-        // Display result with animation
-        resultDiv.innerHTML = `
-            <div class="result-card">
-                <div class="result-emoji">${relationship.emoji}</div>
-                <div class="result-names">${originalName1} & ${originalName2}</div>
-                <div class="result-relationship">${relationship.name}</div>
-                <div class="result-details">
-                    <div>${relationship.message}</div>
-                    <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
-                        Remaining letters: ${count}
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-    
-    calculateBtn.addEventListener('click', calculateFlames);
-    name1Input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') calculateFlames();
-    });
-    name2Input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') calculateFlames();
-    });
+function toPascalCase(str) {
+  if (str === "nqueens") return "NQueens";
+  return str
+    .split("-")
+    .map(function (word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join("");
 }
 
-// ============================================
-// COLLATZ CONJECTURE
-// ============================================
-function getCollatzHTML() {
+function toPascalCase(str) {
+  return str
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("");
+}
+
+function getProjectHTML(projectName) {
+  const fnName = "get" + toPascalCase(projectName) + "HTML";
+
+  try {
+    if (typeof window[fnName] === "function") {
+      return window[fnName]();
+    } else {
+      throw new Error(`Module ${fnName} is missing or failed to initialize.`);
+    }
+  } catch (error) {
+    console.warn(`[Project Loader] Failed to load ${projectName}:`, error);
     return `
-        <div class="project-content">
-            <h2>🔢 Collatz Conjecture</h2>
-            <p class="project-desc">The famous 3n+1 problem - Watch the sequence reach 1!</p>
-            <div class="collatz-container">
-                <div class="rules">
-                    <h3>Rules:</h3>
-                    <div class="rule-item">📉 If even: divide by 2</div>
-                    <div class="rule-item">📈 If odd: multiply by 3 and add 1</div>
-                    <div class="rule-item">🎯 Continue until reaching 1</div>
-                </div>
-                
-                <div class="input-section">
-                    <input type="number" id="collatzNumber" placeholder="Enter a positive integer" min="1" value="27">
-                    <button class="btn-generate" id="generateCollatz">🔢 Generate Sequence</button>
-                </div>
-                
-                <div class="collatz-stats" id="collatzStats"></div>
-                
-                <div class="sequence-display" id="sequenceDisplay"></div>
-                
-                <canvas id="collatzGraph" width="800" height="300"></canvas>
-            </div>
-        </div>
-        
-        <style>
-            .collatz-container {
-                padding: 2rem;
-                max-width: 900px;
-                margin: 0 auto;
-            }
-            
-            .rules {
-                background: var(--surface-color);
-                padding: 1.5rem;
-                border-radius: 15px;
-                margin-bottom: 2rem;
-                border: 2px solid var(--border-color);
-            }
-            
-            .rules h3 {
-                margin-bottom: 1rem;
-                color: var(--primary-color);
-            }
-            
-            .rule-item {
-                padding: 0.5rem;
-                margin: 0.5rem 0;
-                background: var(--bg-color);
-                border-radius: 8px;
-                font-size: 1.1rem;
-            }
-            
-            .input-section {
-                display: flex;
-                gap: 1rem;
-                justify-content: center;
-                margin-bottom: 2rem;
-                flex-wrap: wrap;
-            }
-            
-            .input-section input {
-                flex: 1;
-                max-width: 300px;
-                padding: 1rem;
-                font-size: 1.1rem;
-                border: 2px solid var(--border-color);
-                border-radius: 10px;
-                background: var(--bg-color);
-                color: var(--text-color);
-                text-align: center;
-            }
-            
-            .collatz-stats {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 1rem;
-                margin-bottom: 2rem;
-            }
-            
-            .stat-box {
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                padding: 1.5rem;
-                border-radius: 15px;
-                text-align: center;
-            }
-            
-            .stat-label {
-                font-size: 0.9rem;
-                opacity: 0.9;
-                margin-bottom: 0.5rem;
-            }
-            
-            .stat-value {
-                font-size: 2rem;
-                font-weight: bold;
-            }
-            
-            .sequence-display {
-                background: var(--surface-color);
-                border: 2px solid var(--border-color);
-                border-radius: 15px;
-                padding: 1.5rem;
-                margin-bottom: 2rem;
-                max-height: 300px;
-                overflow-y: auto;
-            }
-            
-            .sequence-number {
-                display: inline-block;
-                background: var(--primary-color);
-                color: white;
-                padding: 0.5rem 1rem;
-                margin: 0.25rem;
-                border-radius: 8px;
-                font-family: 'Courier New', monospace;
-                font-weight: bold;
-                animation: fadeIn 0.3s ease;
-            }
-            
-            .sequence-arrow {
-                display: inline-block;
-                color: var(--text-secondary);
-                margin: 0 0.25rem;
-            }
-            
-            #collatzGraph {
-                background: var(--surface-color);
-                border-radius: 15px;
-                box-shadow: var(--shadow);
-                max-width: 100%;
-                height: auto;
-                display: block;
-                margin: 0 auto;
-            }
-        </style>
+      <div class="project-content error-state" style="text-align: center; padding: 3rem 1rem;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+        <h3 style="color: var(--danger-color, #ff4444); margin-bottom: 0.5rem; font-family: monospace;">
+          SYSTEM ERROR: PROJECT OFFLINE
+        </h3>
+        <p style="color: var(--text-secondary, #a0aec0); margin-bottom: 1.5rem;">
+          We couldn't initialize the interactive environment for <strong>${projectName}</strong>.
+        </p>
+        <button onclick="window.location.reload()" 
+          style="background: var(--primary-color, #4CAF50); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer;">
+          >_ RETRY_CONNECTION
+        </button>
+      </div>
     `;
-}
-
-function initCollatz() {
-    const numberInput = document.getElementById('collatzNumber');
-    const generateBtn = document.getElementById('generateCollatz');
-    const statsDiv = document.getElementById('collatzStats');
-    const sequenceDiv = document.getElementById('sequenceDisplay');
-    const canvas = document.getElementById('collatzGraph');
-    const ctx = canvas.getContext('2d');
-    
-    function generateSequence() {
-        let number = parseInt(numberInput.value);
-        
-        if (!number || number < 1) {
-            sequenceDiv.innerHTML = '<p style="color: var(--danger-color);">⚠️ Please enter a positive integer!</p>';
-            statsDiv.innerHTML = '';
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            return;
-        }
-        
-        const originalNumber = number;
-        const sequence = [number];
-        const maxSteps = 20000;
-        let steps = 0;
-        
-        // Generate sequence with a safety limit
-        while (number !== 1 && steps < maxSteps) {
-            if (number % 2 === 0) {
-                number = number / 2;
-            } else {
-                number = 3 * number + 1;
-            }
-            sequence.push(number);
-            steps++;
-        }
-
-        const reachedOne = number === 1;
-        
-        // Display stats
-        const maxNum = Math.max(...sequence);
-        const statusText = reachedOne ? 'Reached 1 ✅' : `Not reached in ${maxSteps} steps ❌`;
-        
-        statsDiv.innerHTML = `
-            <div class="stat-box">
-                <div class="stat-label">Starting Number</div>
-                <div class="stat-value">${originalNumber}</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">Status</div>
-                <div class="stat-value" style="font-size: 1rem; line-height: 1.3;">${statusText}</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">Steps Taken</div>
-                <div class="stat-value">${steps}</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">Highest Number</div>
-                <div class="stat-value">${maxNum}</div>
-            </div>
-        `;
-        
-        // Display sequence
-        sequenceDiv.innerHTML = reachedOne
-            ? '<p style="margin-bottom: 1rem; color: var(--success-color); font-weight: 600;">✅ This number reaches 1.</p>'
-            : `<p style="margin-bottom: 1rem; color: var(--warning-color); font-weight: 600;">⚠️ Could not confirm reach to 1 within ${maxSteps} steps.</p>`;
-        sequence.forEach((num, index) => {
-            const numEl = document.createElement('span');
-            numEl.className = 'sequence-number';
-            numEl.textContent = num;
-            numEl.style.animationDelay = `${index * 0.02}s`;
-            sequenceDiv.appendChild(numEl);
-            
-            if (index < sequence.length - 1) {
-                const arrow = document.createElement('span');
-                arrow.className = 'sequence-arrow';
-                arrow.textContent = '→';
-                sequenceDiv.appendChild(arrow);
-            }
-        });
-        
-        // Draw graph for the generated sequence
-        drawGraph(sequence);
-    }
-    
-    function drawGraph(sequence) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        if (sequence.length === 0) return;
-        
-        const padding = 40;
-        const graphWidth = canvas.width - 2 * padding;
-        const graphHeight = canvas.height - 2 * padding;
-        
-        const maxValue = Math.max(...sequence);
-        const xStep = graphWidth / (sequence.length - 1);
-        const yScale = graphHeight / maxValue;
-        
-        // Draw axes
-        ctx.strokeStyle = 'var(--text-secondary)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(padding, padding);
-        ctx.lineTo(padding, canvas.height - padding);
-        ctx.lineTo(canvas.width - padding, canvas.height - padding);
-        ctx.stroke();
-        
-        // Draw grid lines
-        ctx.strokeStyle = 'rgba(100, 116, 139, 0.2)';
-        ctx.lineWidth = 1;
-        for (let i = 0; i <= 5; i++) {
-            const y = padding + (graphHeight / 5) * i;
-            ctx.beginPath();
-            ctx.moveTo(padding, y);
-            ctx.lineTo(canvas.width - padding, y);
-            ctx.stroke();
-        }
-        
-        // Draw line
-        ctx.strokeStyle = '#6366f1';
-        ctx.lineWidth = 3;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        
-        ctx.beginPath();
-        sequence.forEach((value, index) => {
-            const x = padding + index * xStep;
-            const y = canvas.height - padding - value * yScale;
-            
-            if (index === 0) {
-                ctx.moveTo(x, y);
-            } else {
-                ctx.lineTo(x, y);
-            }
-        });
-        ctx.stroke();
-        
-        // Draw points
-        ctx.fillStyle = '#8b5cf6';
-        sequence.forEach((value, index) => {
-            const x = padding + index * xStep;
-            const y = canvas.height - padding - value * yScale;
-            
-            ctx.beginPath();
-            ctx.arc(x, y, 4, 0, Math.PI * 2);
-            ctx.fill();
-        });
-        
-        // Draw labels
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '12px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText('Steps →', canvas.width / 2, canvas.height - 10);
-        
-        ctx.save();
-        ctx.translate(15, canvas.height / 2);
-        ctx.rotate(-Math.PI / 2);
-        ctx.fillText('Value', 0, 0);
-        ctx.restore();
-    }
-    
-    generateBtn.addEventListener('click', generateSequence);
-    numberInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') generateSequence();
-    });
-    
-    // Generate initial sequence
-    generateSequence();
-}
-
-function getArmstrongHTML() { 
-    return `
-        <div class="project-content">
-            <h2>💎 Armstrong Number Checker</h2>
-            <p class="project-desc">Check if a number equals the sum of its digits raised to the power of the number of digits</p>
-            <div class="armstrong-container">
-                <div class="input-section">
-                    <input type="number" id="armstrongNumber" placeholder="Enter a number" min="0">
-                    <button class="btn-check" id="checkArmstrong">💎 Check</button>
-                </div>
-                
-                <div class="result-display" id="armstrongResult"></div>
-                
-                <div class="examples">
-                    <h4>Examples of Armstrong Numbers:</h4>
-                    <div class="example-grid">
-                        <button class="example-btn" data-num="0">0</button>
-                        <button class="example-btn" data-num="1">1</button>
-                        <button class="example-btn" data-num="153">153</button>
-                        <button class="example-btn" data-num="370">370</button>
-                        <button class="example-btn" data-num="371">371</button>
-                        <button class="example-btn" data-num="407">407</button>
-                        <button class="example-btn" data-num="1634">1634</button>
-                        <button class="example-btn" data-num="9474">9474</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <style>
-            .armstrong-container {
-                padding: 2rem;
-                max-width: 700px;
-                margin: 0 auto;
-            }
-            
-            .result-display {
-                margin: 2rem 0;
-                min-height: 200px;
-            }
-            
-            .armstrong-result {
-                background: var(--surface-color);
-                border: 2px solid var(--border-color);
-                border-radius: 15px;
-                padding: 2rem;
-                animation: fadeIn 0.5s ease;
-            }
-            
-            .result-header {
-                font-size: 1.8rem;
-                font-weight: bold;
-                margin-bottom: 1.5rem;
-                padding-bottom: 1rem;
-                border-bottom: 2px solid var(--border-color);
-            }
-            
-            .result-header.is-armstrong {
-                color: var(--success-color);
-            }
-            
-            .result-header.not-armstrong {
-                color: var(--danger-color);
-            }
-            
-            .calculation-steps {
-                margin: 1.5rem 0;
-                padding: 1rem;
-                background: var(--bg-color);
-                border-radius: 10px;
-            }
-            
-            .step {
-                margin: 0.75rem 0;
-                font-size: 1.1rem;
-                font-family: 'Courier New', monospace;
-            }
-            
-            .digit-breakdown {
-                display: flex;
-                gap: 1rem;
-                justify-content: center;
-                flex-wrap: wrap;
-                margin: 1.5rem 0;
-            }
-            
-            .digit-card {
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                padding: 1rem;
-                border-radius: 10px;
-                min-width: 80px;
-                text-align: center;
-            }
-            
-            .digit-value {
-                font-size: 2rem;
-                font-weight: bold;
-            }
-            
-            .digit-power {
-                font-size: 0.9rem;
-                opacity: 0.9;
-                margin-top: 0.5rem;
-            }
-            
-            .examples {
-                margin-top: 3rem;
-                text-align: center;
-            }
-            
-            .examples h4 {
-                margin-bottom: 1rem;
-                color: var(--text-secondary);
-            }
-            
-            .example-grid {
-                display: flex;
-                gap: 0.5rem;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            .example-btn {
-                background: var(--surface-color);
-                border: 2px solid var(--border-color);
-                color: var(--text-color);
-                padding: 0.75rem 1.5rem;
-                border-radius: 10px;
-                cursor: pointer;
-                font-size: 1.1rem;
-                transition: var(--transition);
-            }
-            
-            .example-btn:hover {
-                border-color: var(--primary-color);
-                transform: translateY(-2px);
-            }
-        </style>
-    `;
-}
-
-function initArmstrong() {
-    const numberInput = document.getElementById('armstrongNumber');
-    const checkBtn = document.getElementById('checkArmstrong');
-    const resultDiv = document.getElementById('armstrongResult');
-    const exampleBtns = document.querySelectorAll('.example-btn');
-    
-    function checkArmstrong(num) {
-        if (num === null || num === undefined || num < 0) {
-            resultDiv.innerHTML = '<p style="color: var(--danger-color);">⚠️ Please enter a valid positive number!</p>';
-            return;
-        }
-        
-        const numStr = num.toString();
-        const numDigits = numStr.length;
-        const digits = numStr.split('').map(Number);
-        
-        // Calculate sum
-        let sum = 0;
-        const calculations = [];
-        
-        digits.forEach(digit => {
-            const power = Math.pow(digit, numDigits);
-            sum += power;
-            calculations.push({ digit, power });
-        });
-        
-        const isArmstrong = sum === num;
-        
-        // Display result
-        let html = `
-            <div class="armstrong-result">
-                <div class="result-header ${isArmstrong ? 'is-armstrong' : 'not-armstrong'}">
-                    ${isArmstrong ? '✅ Armstrong Number!' : '❌ Not an Armstrong Number'}
-                </div>
-                
-                <div class="calculation-steps">
-                    <div class="step"><strong>Number:</strong> ${num}</div>
-                    <div class="step"><strong>Number of digits:</strong> ${numDigits}</div>
-                    <div class="step"><strong>Calculation:</strong> Each digit raised to power ${numDigits}</div>
-                </div>
-                
-                <div class="digit-breakdown">
-        `;
-        
-        calculations.forEach(calc => {
-            html += `
-                <div class="digit-card">
-                    <div class="digit-value">${calc.digit}</div>
-                    <div class="digit-power">${calc.digit}^${numDigits} = ${calc.power}</div>
-                </div>
-            `;
-        });
-        
-        html += `
-                </div>
-                
-                <div class="calculation-steps">
-                    <div class="step">
-                        <strong>Sum:</strong> ${calculations.map(c => c.power).join(' + ')} = ${sum}
-                    </div>
-                    <div class="step">
-                        ${isArmstrong 
-                            ? `<span style="color: var(--success-color);">✓ ${sum} = ${num} (Armstrong Number!)</span>`
-                            : `<span style="color: var(--danger-color);">✗ ${sum} ≠ ${num} (Not Armstrong)</span>`
-                        }
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        resultDiv.innerHTML = html;
-    }
-    
-    checkBtn.addEventListener('click', () => {
-        const num = parseInt(numberInput.value);
-        checkArmstrong(num);
-    });
-    
-    numberInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const num = parseInt(numberInput.value);
-            checkArmstrong(num);
-        }
-    });
-    
-    exampleBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const num = parseInt(btn.getAttribute('data-num'));
-            numberInput.value = num;
-            checkArmstrong(num);
-        });
-    });
+  }
 }
 
 // ============================================
-// HANGMAN GAME
+// PROJECT INSTRUCTIONS FOR INFO TOOLTIPS
 // ============================================
-function getHangmanHTML() {
-    return `
-        <div class="project-content">
-            <h2>🎮 Hangman Game</h2>
-            <div class="hangman-container">
-                <div class="game-stats">
-                    <div class="stat">
-                        <span class="stat-label">Attempts Left:</span>
-                        <span class="stat-value" id="attemptsLeft">6</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">Word Length:</span>
-                        <span class="stat-value" id="wordLength">0</span>
-                    </div>
-                </div>
-                
-                <canvas id="hangmanCanvas" width="300" height="350"></canvas>
-                
-                <div class="word-display" id="wordDisplay"></div>
-                
-                <div class="guessed-letters">
-                    <h4>Guessed Letters:</h4>
-                    <div id="guessedList">None</div>
-                </div>
-                
-                <div class="keyboard" id="keyboard"></div>
-                
-                <div class="game-message" id="gameMessage"></div>
-                
-                <button class="btn-new-game" id="newGameBtn">🎮 New Game</button>
-            </div>
-        </div>
-        
-        <style>
-            .hangman-container {
-                padding: 2rem;
-                max-width: 800px;
-                margin: 0 auto;
-                text-align: center;
-            }
-            
-            .game-stats {
-                display: flex;
-                gap: 2rem;
-                justify-content: center;
-                margin-bottom: 2rem;
-            }
-            
-            .stat {
-                background: var(--surface-color);
-                padding: 1rem 2rem;
-                border-radius: 10px;
-                border: 2px solid var(--border-color);
-            }
-            
-            .stat-label {
-                display: block;
-                font-size: 0.9rem;
-                color: var(--text-secondary);
-                margin-bottom: 0.5rem;
-            }
-            
-            .stat-value {
-                display: block;
-                font-size: 2rem;
-                font-weight: bold;
-                color: var(--primary-color);
-            }
-            
-            #hangmanCanvas {
-                background: var(--surface-color);
-                border: 2px solid var(--border-color);
-                border-radius: 15px;
-                margin: 2rem auto;
-                display: block;
-                box-shadow: var(--shadow);
-            }
-            
-            .word-display {
-                font-size: 3rem;
-                letter-spacing: 1rem;
-                margin: 2rem 0;
-                font-family: 'Courier New', monospace;
-                font-weight: bold;
-                min-height: 4rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            .letter-box {
-                display: inline-block;
-                width: 50px;
-                height: 60px;
-                line-height: 60px;
-                margin: 0.25rem;
-                border-bottom: 3px solid var(--primary-color);
-                color: var(--text-color);
-            }
-            
-            .guessed-letters {
-                margin: 2rem 0;
-            }
-            
-            .guessed-letters h4 {
-                color: var(--text-secondary);
-                margin-bottom: 1rem;
-            }
-            
-            #guessedList {
-                font-size: 1.2rem;
-                color: var(--text-color);
-                min-height: 2rem;
-            }
-            
-            .keyboard {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                justify-content: center;
-                margin: 2rem 0;
-                max-width: 600px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .key-btn {
-                width: 45px;
-                height: 45px;
-                background: var(--primary-color);
-                color: white;
-                border: none;
-                border-radius: 8px;
-                font-size: 1.2rem;
-                font-weight: bold;
-                cursor: pointer;
-                transition: var(--transition);
-            }
-            
-            .key-btn:hover:not(:disabled) {
-                transform: scale(1.1);
-                box-shadow: 0 3px 10px rgba(99, 102, 241, 0.4);
-            }
-            
-            .key-btn:disabled {
-                background: var(--border-color);
-                cursor: not-allowed;
-                opacity: 0.5;
-            }
-            
-            .key-btn.correct {
-                background: var(--success-color);
-            }
-            
-            .key-btn.wrong {
-                background: var(--danger-color);
-            }
-            
-            .game-message {
-                font-size: 1.5rem;
-                font-weight: bold;
-                min-height: 3rem;
-                margin: 2rem 0;
-            }
-            
-            .game-message.win {
-                color: var(--success-color);
-            }
-            
-            .game-message.lose {
-                color: var(--danger-color);
-            }
-            
-            .btn-new-game {
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                border: none;
-                padding: 1rem 3rem;
-                border-radius: 50px;
-                font-size: 1.2rem;
-                cursor: pointer;
-                transition: var(--transition);
-            }
-            
-            .btn-new-game:hover {
-                transform: scale(1.05);
-                box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
-            }
-        </style>
-    `;
+
+const projectInstructions = {
+  // GAMES
+  "war-card-game": {
+    title: "⚔️ How to Play War Card Game",
+    steps: [
+      "Enter names or check the option to play against the CPU.",
+      "Each player starts with a deck of 26 cards.",
+      "Click 'Draw / Battle' to draw the top card from both decks.",
+      "The player with the higher card rank wins the round and gets a point.",
+      "Ace is the highest, 2 is the lowest.",
+      "Play continues until all cards are drawn. The player with the most points wins!"
+    ]
+  },
+  "number-sliding-puzzle": {
+    title: "🧩 How to Play Number Sliding Puzzle",
+    steps: [
+      "Use arrow keys (← ↑ → ↓) or click/tap on tiles next to the empty space to slide them.",
+      "Arrange the numbers in ascending order from 1 to 8, with the blank space at the bottom right.",
+      "A moves counter keeps track of your steps.",
+      "Click the Reset button to restart the game."
+    ]
+  },
+  "2048-game": {
+    title: "🎮 How to Play 2048",
+    steps: [
+      "Use arrow keys (← ↑ → ↓) or on-screen buttons to move tiles",
+      "Same numbers merge into one (2+2=4, 4+4=8)",
+      "Keep merging to reach 2048!",
+      "Game ends when no moves are possible"
+    ]
+  },
+  "snake-game": {
+    title: "🐍 How to Play Snake",
+    steps: [
+      "Use arrow keys to control the snake",
+      "Eat the red food to grow longer",
+      "Don't hit the walls or yourself"
+    ]
+  },
+  "rock-paper-scissor": {
+    title: "✊ How to Play Rock Paper Scissors",
+    steps: [
+      "Choose Rock, Paper, or Scissors",
+      "Rock beats Scissors, Scissors beats Paper, Paper beats Rock",
+      "Play against the computer"
+    ]
+  },
+  "simon-says": {
+    title: "🎮 How to Play Simon Says",
+    steps: [
+      "Watch the sequence of colors/emojis",
+      "Repeat the sequence in the same order",
+      "Each round adds one more step",
+      "One wrong click ends the game"
+    ]
+  },
+  "flames": {
+    title: "💖 How to Use FLAMES",
+    steps: [
+      "Enter two names",
+      "Click Calculate",
+      "See your relationship status",
+      "Based on letter cancellation method"
+    ]
+  },
+  "tic-tac-toe": {
+    title: "❌⭕ How to Play Tic Tac Toe",
+    steps: [
+      "Two players take turns (X and O)",
+      "Get 3 in a row to win",
+      "Game ends when someone wins or board is full"
+    ]
+  },
+  "hangman": {
+    title: "🎮 How to Play Hangman",
+    steps: [
+      "Guess letters to complete the hidden word",
+      "6 wrong guesses and you lose",
+      "Use the keyboard or on-screen buttons"
+    ]
+  },
+  "flappy-game": {
+    title: "🐦 How to Play Flappy Game",
+    steps: [
+      "Click or press spacebar to make the bird fly",
+      "Avoid hitting the pipes",
+      "Try to get the highest score"
+    ]
+  },
+  "dice-rolling": {
+    title: "🎲 How to Use Dice Roller",
+    steps: [
+      "Choose the number of dice",
+      "Click 'Roll Dice' to roll",
+      "Each die shows a random number (1-6)"
+    ]
+  },
+  "coin-flip": {
+    title: "🪙 How to Play Coin Flip",
+    steps: [
+      "Bet on Heads or Tails",
+      "Click 'Flip Coin' to toss",
+      "Win if your prediction is correct"
+    ]
+  },
+  "number-guessing": {
+    title: "🎯 How to Play Number Guessing",
+    steps: [
+      "Guess a number between 1 and 100",
+      "Get hints if too high or too low",
+      "Try to guess in as few attempts as possible"
+    ]
+  },
+  "word-scramble": {
+    title: "📝 How to Play Word Scramble",
+    steps: [
+      "Unscramble the jumbled word",
+      "You have 30 seconds to guess",
+      "Use shuffle button to rearrange letters"
+    ]
+  },
+  "emoji-memory": {
+    title: "😀 How to Play Emoji Memory",
+    steps: [
+      "Click Start to begin",
+      "Watch the sequence of emojis",
+      "Retrace the sequence by clicking emoji buttons",
+      "Each level adds one more emoji"
+    ]
+  },
+  "dots-boxes": {
+    title: "🔲 How to Play Dots and Boxes",
+    steps: [
+      "Choose grid size",
+      "Select 2 Players or AI",
+      "Connect dots to form boxes",
+      "Player with most boxes wins"
+    ]
+  },
+  "whack-a-mole": {
+    title: "🔨 How to Play Whack-a-Mole",
+    steps: [
+      "Click on moles as they appear",
+      "Each mole gives points",
+      "Beat the clock for high score"
+    ]
+  },
+  "blackjack-21": {
+    title: "🃏 How to Play Blackjack",
+    steps: [
+      "Get as close to 21 without going over",
+      "Click 'Hit' for another card",
+      "Click 'Stand' to keep your hand",
+      "Beat the dealer to win"
+    ]
+  },
+  "reverse-hangman": {
+  title: "🤖 How to Play Reverse Hangman",
+  steps: [
+    "Think of a secret word from the dictionary (40+ words available)",
+    "The AI tries to guess your word using letter frequency analysis",
+    "Tell the AI if its guess is correct or not",
+    "AI gets 8 attempts max — can you beat the computer?",
+    "Watch the hangman visual feedback as AI guesses"
+  ]
+},
+
+  // MATH
+  "calculator": {
+    title: "🧮 How to Use Calculator",
+    steps: [
+      "Click number buttons to enter values",
+      "Use operators (+, -, ×, ÷)",
+      "Press = to see result",
+      "Use C to clear, ⌫ to delete"
+    ]
+  },
+  "collatz": {
+    title: "🔢 How Collatz Conjecture Works",
+    steps: [
+      "Enter any positive integer",
+      "If even: divide by 2",
+      "If odd: multiply by 3 and add 1",
+      "The sequence always reaches 1!"
+    ]
+  },
+  "fibonacci": {
+    title: "📈 How Fibonacci Works",
+    steps: [
+      "Enter number of terms",
+      "Each number is sum of previous two",
+      "Sequence starts with 0, 1"
+    ]
+  },
+  "pascal-triangle": {
+    title: "🔺 How Pascal's Triangle Works",
+    steps: [
+      "Each number is sum of two above",
+      "Enter number of rows to generate"
+    ]
+  },
+  "armstrong": {
+    title: "💎 How Armstrong Numbers Work",
+    steps: [
+      "Enter a number to check",
+      "Sum of digits raised to power of digit count",
+      "If sum equals original number → Armstrong number"
+    ]
+  },
+  "prime-analyzer": {
+    title: "🔢 How Prime Analyzer Works",
+    steps: [
+      "Check if a number is prime",
+      "Generate primes up to a limit",
+      "Find primes in a range"
+    ]
+  },
+  "projectile-motion": {
+    title: "⚾ How Projectile Motion Works",
+    steps: [
+      "Enter initial velocity and angle",
+      "Calculate time of flight, max height, range"
+    ]
+  },
+  "binary-search": {
+    title: "🔍 How Binary Search Works",
+    steps: [
+      "Enter a sorted array",
+      "Enter target value to search",
+      "Cuts search space in half each step"
+    ]
+  },
+  "bubble-sort": {
+    title: "🔄 How Bubble Sort Works",
+    steps: [
+      "Enter an array of numbers",
+      "Watch the sorting visualization"
+    ]
+  },
+  "quick-sort": {
+  title: "⚡ How Quick Sort Works",
+  steps: [
+    "Enter an array of numbers",
+    "A pivot element is chosen",
+    "Smaller elements go left, larger go right",
+    "Process repeats until fully sorted"
+  ]
+},
+"merge-sort": {
+  title: "🔀 How Merge Sort Works",
+  steps: [
+    "Enter an array of numbers",
+    "Array is divided into two halves",
+    "Each half is recursively sorted",
+    "Sorted halves are merged back together"
+  ]
+},
+  "tower-of-hanoi": {
+    title: "🗼 How to Solve Tower of Hanoi",
+    steps: [
+      "Enter the number of disks",
+      "Click Solve to watch the animation",
+      "No larger disk on top of smaller disk"
+    ]
+  },
+  "coordinate-polar-transform": {
+    title: "📐 How Coordinate to Polar Transform Works",
+    steps: [
+      "Enter X and Y coordinates",
+      "Click Convert to get polar transformation"
+    ]
+  },
+  "derivative-calculator": {
+    title: "📈 How Derivative Calculator Works",
+    steps: [
+      "Enter derivative order (n)",
+      "Enter coefficients",
+      "Enter x value to evaluate"
+    ]
+  },
+  "progression-recognizer": {
+    title: "📊 How AP/GP/AGP/HP Recognizer Works",
+    steps: [
+      "Enter a sequence of numbers",
+      "Click Recognize to identify the sequence type"
+    ]
+  },
+  "matrix-calculator": {
+    title: "🧮 How to Use Matrix Calculator",
+    steps: [
+        "Select matrix dimensions (rows × columns)",
+        "Enter values into each cell",
+        "Choose operation: Addition, Subtraction, Multiplication, Transpose, Determinant, Rank, or Inverse",
+        "Click Calculate to see the result",
+        "Determinant & Inverse work only for square matrices"
+    ]
+  },
+
+  // UTILITIES
+  "color-palette": {
+    title: "🎨 How to Use Color Palette",
+    steps: [
+      "Select a website type",
+      "Choose a mood",
+      "Click 'Generate Palette'",
+      "Click any color to copy its hex code"
+    ]
+  },
+  "budget-tracker": {
+    title: "💰 How to Use Budget Tracker",
+    steps: [
+      "Select the transaction type (Income or Expense) from the dropdown.",
+      "Enter a category, description (optional), and positive amount value.",
+      "Click 'Add Transaction' to log it in your dashboard.",
+      "Analyze spending behavior through dynamic category-wise progress bars.",
+      "Clear individual records using the delete action or wipe out all history securely."
+    ]
+  },
+  "morse-code": {
+    title: "📻 How to Use Morse Code",
+    steps: [
+      "Type text in the input box",
+      "Click Translate to convert to Morse code"
+    ]
+  },
+  "caesar-cipher": {
+    title: "🔐 How to Use Caesar Cipher",
+    steps: [
+      "Enter your message",
+      "Choose shift number (1-25)",
+      "Click Encrypt or Decrypt",
+      "Copy the result"
+    ]
+  },
+  "number-converter": {
+    title: "🔄 How to Use Number Converter",
+    steps: [
+      "Enter a number",
+      "Choose base to convert from and to",
+      "Result appears instantly"
+    ]
+  },
+  "password-forge": {
+    title: "🔑 How to Use Password Forge",
+    steps: [
+      "Choose password length",
+      "Select character types",
+      "Click Generate",
+      "Copy the secure password"
+    ]
+  },
+  "resume-analyzer": {
+    title: "📄 How to Use AI Resume Analyzer",
+    steps: [
+      "Upload your resume (PDF, DOC, or TXT)",
+      "Click 'Analyze Resume'",
+      "View your ATS score and keyword matches",
+      "Check suggestions to improve your resume"
+    ]
+  },
+  "typing-speed-tester": {
+    title: "⌨️ How to Use Typing Speed Tester",
+    steps: [
+      "Click Start to begin",
+      "Type the displayed text",
+      "Time starts when you begin typing",
+      "See your WPM score"
+    ]
+  },
+  "productive-pet": {
+    title: "🐱 How to Use Productive Pet",
+    steps: [
+      "Add tasks to complete",
+      "Pet grows as you complete tasks",
+      "Stay productive to keep your pet happy"
+    ]
+  },
+  "progress-tracker": {
+    title: "📊 How to Use Progress Tracker",
+    steps: [
+      "Track your completed mini projects",
+      "Mark projects as complete",
+      "See your progress over time"
+    ]
+  },
+  "unit-converter": {
+    title: "📏 How to Use Unit Converter",
+    steps: [
+        "Select conversion category (Length, Mass, Temperature, etc.)",
+        "Choose input and output units",
+        "Enter the value to convert",
+        "Result appears instantly",
+        "Supports multiple unit types"
+  ]
 }
+};
 
-function initHangman() {
-    const canvas = document.getElementById('hangmanCanvas');
-    const ctx = canvas.getContext('2d');
-    const wordDisplay = document.getElementById('wordDisplay');
-    const guessedList = document.getElementById('guessedList');
-    const attemptsLeftEl = document.getElementById('attemptsLeft');
-    const wordLengthEl = document.getElementById('wordLength');
-    const keyboard = document.getElementById('keyboard');
-    const gameMessage = document.getElementById('gameMessage');
-    const newGameBtn = document.getElementById('newGameBtn');
-    
-    const words = ['python', 'programming', 'computer', 'algorithm', 'keyboard', 
-                   'monitor', 'software', 'hardware', 'database', 'network',
-                   'internet', 'developer', 'variable', 'function', 'application'];
-    
-    let currentWord = '';
-    let guessedLetters = [];
-    let correctLetters = [];
-    let wrongAttempts = 0;
-    const maxAttempts = 6;
-    let gameOver = false;
-    
-    // Create keyboard
-    function createKeyboard() {
-        keyboard.innerHTML = '';
-        const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
-        
-        letters.forEach(letter => {
-            const btn = document.createElement('button');
-            btn.className = 'key-btn';
-            btn.textContent = letter.toUpperCase();
-            btn.dataset.letter = letter;
-            btn.addEventListener('click', () => guessLetter(letter));
-            keyboard.appendChild(btn);
-        });
-    }
-    
-    // Draw hangman parts
-    function drawHangman(stage) {
-        ctx.strokeStyle = '#64748b';
-        ctx.lineWidth = 3;
-        ctx.lineCap = 'round';
-        
-        switch(stage) {
-            case 1: // Base
-                ctx.beginPath();
-                ctx.moveTo(50, 320);
-                ctx.lineTo(200, 320);
-                ctx.stroke();
-                break;
-            case 2: // Pole
-                ctx.beginPath();
-                ctx.moveTo(100, 320);
-                ctx.lineTo(100, 50);
-                ctx.stroke();
-                break;
-            case 3: // Top beam
-                ctx.beginPath();
-                ctx.moveTo(100, 50);
-                ctx.lineTo(200, 50);
-                ctx.stroke();
-                break;
-            case 4: // Rope
-                ctx.beginPath();
-                ctx.moveTo(200, 50);
-                ctx.lineTo(200, 80);
-                ctx.stroke();
-                break;
-            case 5: // Head
-                ctx.beginPath();
-                ctx.arc(200, 100, 20, 0, Math.PI * 2);
-                ctx.stroke();
-                // Eyes
-                ctx.fillStyle = '#64748b';
-                ctx.beginPath();
-                ctx.arc(195, 95, 2, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.arc(205, 95, 2, 0, Math.PI * 2);
-                ctx.fill();
-                // Sad mouth
-                ctx.beginPath();
-                ctx.arc(200, 105, 8, 0, Math.PI, false);
-                ctx.stroke();
-                break;
-            case 6: // Body
-                ctx.beginPath();
-                ctx.moveTo(200, 120);
-                ctx.lineTo(200, 200);
-                ctx.stroke();
-                break;
-            case 7: // Left arm
-                ctx.beginPath();
-                ctx.moveTo(200, 140);
-                ctx.lineTo(170, 170);
-                ctx.stroke();
-                break;
-            case 8: // Right arm
-                ctx.beginPath();
-                ctx.moveTo(200, 140);
-                ctx.lineTo(230, 170);
-                ctx.stroke();
-                break;
-            case 9: // Left leg
-                ctx.beginPath();
-                ctx.moveTo(200, 200);
-                ctx.lineTo(180, 250);
-                ctx.stroke();
-                break;
-            case 10: // Right leg (game over)
-                ctx.beginPath();
-                ctx.moveTo(200, 200);
-                ctx.lineTo(220, 250);
-                ctx.stroke();
-                break;
-        }
-    }
-    
-    // Initialize game
-    function initGame() {
-        currentWord = words[Math.floor(Math.random() * words.length)];
-        guessedLetters = [];
-        correctLetters = [];
-        wrongAttempts = 0;
-        gameOver = false;
-        
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Update UI
-        wordLengthEl.textContent = currentWord.length;
-        attemptsLeftEl.textContent = maxAttempts;
-        guessedList.textContent = 'None';
-        gameMessage.textContent = '';
-        gameMessage.className = 'game-message';
-        
-        createKeyboard();
-        updateWordDisplay();
-    }
-    
-    // Update word display
-    function updateWordDisplay() {
-        wordDisplay.innerHTML = '';
-        for (let letter of currentWord) {
-            const letterBox = document.createElement('div');
-            letterBox.className = 'letter-box';
-            letterBox.textContent = correctLetters.includes(letter) ? letter.toUpperCase() : '';
-            wordDisplay.appendChild(letterBox);
-        }
-    }
-    
-    // Guess letter
-    function guessLetter(letter) {
-        if (gameOver || guessedLetters.includes(letter)) return;
-        
-        guessedLetters.push(letter);
-        
-        // Update button
-        const btn = keyboard.querySelector(`[data-letter="${letter}"]`);
-        btn.disabled = true;
-        
-        if (currentWord.includes(letter)) {
-            // Correct guess
-            correctLetters.push(letter);
-            btn.classList.add('correct');
-            
-            updateWordDisplay();
-            
-            // Check win
-            if (currentWord.split('').every(l => correctLetters.includes(l))) {
-                gameOver = true;
-                gameMessage.textContent = '🎉 Congratulations! You won!';
-                gameMessage.className = 'game-message win';
-                disableAllKeys();
-            }
-        } else {
-            // Wrong guess
-            wrongAttempts++;
-            btn.classList.add('wrong');
-            
-            // Draw hangman part (stages 1-4 are gallows, 5-10 are body parts)
-            const drawStage = wrongAttempts + 4;
-            drawHangman(drawStage);
-            
-            attemptsLeftEl.textContent = maxAttempts - wrongAttempts;
-            
-            // Check lose
-            if (wrongAttempts >= maxAttempts) {
-                gameOver = true;
-                gameMessage.innerHTML = `😔 Game Over! The word was: <strong>${currentWord.toUpperCase()}</strong>`;
-                gameMessage.className = 'game-message lose';
-                disableAllKeys();
-                updateWordDisplay();
-                // Show complete word
-                wordDisplay.innerHTML = '';
-                for (let letter of currentWord) {
-                    const letterBox = document.createElement('div');
-                    letterBox.className = 'letter-box';
-                    letterBox.textContent = letter.toUpperCase();
-                    letterBox.style.color = 'var(--danger-color)';
-                    wordDisplay.appendChild(letterBox);
-                }
-            }
-        }
-        
-        // Update guessed letters list
-        guessedList.textContent = guessedLetters.join(', ').toUpperCase();
-    }
-    
-    function disableAllKeys() {
-        keyboard.querySelectorAll('.key-btn').forEach(btn => {
-            btn.disabled = true;
-        });
-    }
-    
-    // Draw initial gallows
-    function drawGallows() {
-        drawHangman(1); // Base
-        drawHangman(2); // Pole
-        drawHangman(3); // Top beam
-        drawHangman(4); // Rope
-    }
-    
-    newGameBtn.addEventListener('click', () => {
-        initGame();
-        drawGallows();
-    });
-    
-    // Keyboard support
-    document.addEventListener('keypress', (e) => {
-        if (gameOver) return;
-        const letter = e.key.toLowerCase();
-        if (/^[a-z]$/.test(letter) && !guessedLetters.includes(letter)) {
-            guessLetter(letter);
-        }
-    });
-    
-    // Initialize
-    initGame();
-    drawGallows();
-}
-
-// Collatz implementation is defined above.
-
-function getPrimeAnalyzerHTML() { return '<h2>🔱 Prime Analyzer - Coming Soon!</h2>'; }
-function initPrimeAnalyzer() {}
-
-// ============================================
-// MORSE CODE TRANSLATOR
-// ============================================
-function getMorseCodeHTML() {
-    return `
-        <div class="project-content">
-            <h2>📻 Morse Code Translator</h2>
-            <div class="morse-container">
-                <div class="input-section">
-                    <label for="textInput">Enter Text:</label>
-                    <textarea id="textInput" rows="4" placeholder="Type your message here..."></textarea>
-                    <button class="btn-translate" id="translateBtn">📻 Translate to Morse</button>
-                </div>
-                
-                <div class="output-section">
-                    <h3>Morse Code Output:</h3>
-                    <div class="morse-output" id="morseOutput">
-                        <p class="placeholder">Your morse code will appear here...</p>
-                    </div>
-                </div>
-                
-                <div class="morse-chart">
-                    <h4>📊 Morse Code Reference Chart</h4>
-                    <div class="chart-grid" id="morseChart"></div>
-                </div>
-            </div>
-        </div>
-        
-        <style>
-            .morse-container {
-                padding: 2rem;
-                max-width: 800px;
-                margin: 0 auto;
-            }
-            
-            .input-section {
-                margin-bottom: 2rem;
-            }
-            
-            .input-section label {
-                display: block;
-                margin-bottom: 0.5rem;
-                font-size: 1.1rem;
-                font-weight: 600;
-            }
-            
-            .input-section textarea {
-                width: 100%;
-                padding: 1rem;
-                font-size: 1.1rem;
-                border: 2px solid var(--border-color);
-                border-radius: 10px;
-                background: var(--bg-color);
-                color: var(--text-color);
-                resize: vertical;
-                font-family: inherit;
-            }
-            
-            .btn-translate {
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                border: none;
-                padding: 1rem 2rem;
-                border-radius: 50px;
-                font-size: 1.1rem;
-                cursor: pointer;
-                margin-top: 1rem;
-                transition: var(--transition);
-            }
-            
-            .btn-translate:hover {
-                transform: scale(1.05);
-                box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
-            }
-            
-            .output-section h3 {
-                margin-bottom: 1rem;
-            }
-            
-            .morse-output {
-                background: var(--surface-color);
-                border: 2px solid var(--border-color);
-                border-radius: 10px;
-                padding: 1.5rem;
-                min-height: 100px;
-                margin-bottom: 2rem;
-            }
-            
-            .morse-word {
-                display: inline-block;
-                margin: 0.5rem;
-                padding: 0.75rem 1rem;
-                background: var(--bg-color);
-                border-radius: 8px;
-                font-family: 'Courier New', monospace;
-                font-size: 1.2rem;
-                font-weight: bold;
-                color: var(--primary-color);
-                animation: fadeIn 0.3s ease;
-            }
-            
-            .placeholder {
-                color: var(--text-secondary);
-                text-align: center;
-                font-style: italic;
-            }
-            
-            .morse-chart {
-                margin-top: 3rem;
-            }
-            
-            .morse-chart h4 {
-                margin-bottom: 1rem;
-                text-align: center;
-            }
-            
-            .chart-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-                gap: 0.5rem;
-            }
-            
-            .chart-item {
-                background: var(--surface-color);
-                border: 1px solid var(--border-color);
-                border-radius: 8px;
-                padding: 0.5rem;
-                text-align: center;
-                font-size: 0.9rem;
-            }
-            
-            .chart-char {
-                font-weight: bold;
-                font-size: 1.1rem;
-                color: var(--primary-color);
-            }
-            
-            .chart-morse {
-                font-family: 'Courier New', monospace;
-                color: var(--text-secondary);
-                margin-top: 0.25rem;
-            }
-        </style>
-    `;
-}
-
-function initMorseCode() {
-    const morseCode = {
-        'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
-        'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
-        'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
-        'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
-        'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---',
-        '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...',
-        '8': '---..', '9': '----.', ' ': '/'
-    };
-    
-    const textInput = document.getElementById('textInput');
-    const translateBtn = document.getElementById('translateBtn');
-    const morseOutput = document.getElementById('morseOutput');
-    const morseChart = document.getElementById('morseChart');
-    
-    // Populate morse chart
-    Object.keys(morseCode).forEach(char => {
-        if (char !== ' ') {
-            const item = document.createElement('div');
-            item.className = 'chart-item';
-            item.innerHTML = `
-                <div class="chart-char">${char}</div>
-                <div class="chart-morse">${morseCode[char]}</div>
-            `;
-            morseChart.appendChild(item);
-        }
-    });
-    
-    // Translate function
-    function translate() {
-        const text = textInput.value.toUpperCase();
-        if (!text.trim()) {
-            morseOutput.innerHTML = '<p class="placeholder">Please enter some text to translate!</p>';
-            return;
-        }
-        
-        morseOutput.innerHTML = '';
-        const words = text.split(' ');
-        
-        words.forEach((word, wordIndex) => {
-            let morseWord = '';
-            for (let char of word) {
-                if (morseCode[char]) {
-                    morseWord += morseCode[char] + ' ';
-                }
-            }
-            
-            if (morseWord.trim()) {
-                const wordEl = document.createElement('div');
-                wordEl.className = 'morse-word';
-                wordEl.textContent = morseWord.trim();
-                wordEl.style.animationDelay = `${wordIndex * 0.1}s`;
-                morseOutput.appendChild(wordEl);
-            }
-        });
-    }
-    
-    translateBtn.addEventListener('click', translate);
-    textInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && e.ctrlKey) {
-            translate();
-        }
-    });
-}
-
-// ============================================
-// PRIME ANALYZER
-// ============================================
-function getPrimeAnalyzerHTML() {
-    return `
-        <div class="project-content">
-            <h2>🔱 Prime Number Analyzer</h2>
-            <div class="prime-container">
-                <div class="prime-checker">
-                    <h3>Check if Number is Prime</h3>
-                    <div class="input-group">
-                        <input type="number" id="primeInput" placeholder="Enter a number">
-                        <button class="btn-check" id="checkPrimeBtn">Check</button>
-                    </div>
-                    <div class="result-display" id="primeResult"></div>
-                </div>
-                
-                <div class="prime-generator">
-                    <h3>Generate Prime Numbers</h3>
-                    <div class="input-group">
-                        <label>Up to: </label>
-                        <input type="number" id="generateLimit" placeholder="100" value="100">
-                        <button class="btn-check" id="generatePrimesBtn">Generate</button>
-                    </div>
-                    <div class="primes-display" id="primesDisplay"></div>
-                </div>
-                
-                <div class="prime-range">
-                    <h3>Primes in Range</h3>
-                    <div class="range-inputs">
-                        <input type="number" id="rangeStart" placeholder="Start" value="1">
-                        <span>to</span>
-                        <input type="number" id="rangeEnd" placeholder="End" value="50">
-                        <button class="btn-check" id="rangeBtn">Find</button>
-                    </div>
-                    <div class="primes-display" id="rangeDisplay"></div>
-                </div>
-            </div>
-        </div>
-        
-        <style>
-            .prime-container {
-                padding: 2rem;
-                max-width: 900px;
-                margin: 0 auto;
-            }
-            
-            .prime-checker, .prime-generator, .prime-range {
-                background: var(--surface-color);
-                padding: 1.5rem;
-                border-radius: 15px;
-                margin-bottom: 2rem;
-                border: 2px solid var(--border-color);
-            }
-            
-            .prime-checker h3, .prime-generator h3, .prime-range h3 {
-                margin-bottom: 1rem;
-                color: var(--primary-color);
-            }
-            
-            .input-group {
-                display: flex;
-                gap: 1rem;
-                align-items: center;
-                flex-wrap: wrap;
-                margin-bottom: 1rem;
-            }
-            
-            .input-group input {
-                flex: 1;
-                min-width: 150px;
-                padding: 0.75rem;
-                font-size: 1.1rem;
-                border: 2px solid var(--border-color);
-                border-radius: 10px;
-                background: var(--bg-color);
-                color: var(--text-color);
-            }
-            
-            .btn-check {
-                background: var(--primary-color);
-                color: white;
-                border: none;
-                padding: 0.75rem 2rem;
-                border-radius: 10px;
-                cursor: pointer;
-                font-size: 1rem;
-                transition: var(--transition);
-            }
-            
-            .btn-check:hover {
-                transform: scale(1.05);
-            }
-            
-            .result-display {
-                font-size: 1.3rem;
-                font-weight: bold;
-                padding: 1rem;
-                border-radius: 10px;
-                min-height: 3rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .result-display.prime {
-                background: var(--success-color);
-                color: white;
-            }
-            
-            .result-display.not-prime {
-                background: var(--danger-color);
-                color: white;
-            }
-            
-            .primes-display {
-                display: flex;
-                gap: 0.5rem;
-                flex-wrap: wrap;
-                margin-top: 1rem;
-                min-height: 50px;
-            }
-            
-            .prime-number {
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                padding: 0.5rem 1rem;
-                border-radius: 10px;
-                font-weight: bold;
-                animation: fadeIn 0.3s ease;
-            }
-            
-            .range-inputs {
-                display: flex;
-                gap: 1rem;
-                align-items: center;
-                flex-wrap: wrap;
-            }
-            
-            .range-inputs input {
-                width: 120px;
-                padding: 0.75rem;
-                font-size: 1.1rem;
-                border: 2px solid var(--border-color);
-                border-radius: 10px;
-                background: var(--bg-color);
-                color: var(--text-color);
-            }
-        </style>
-    `;
-}
-
-function initPrimeAnalyzer() {
-    const primeInput = document.getElementById('primeInput');
-    const checkPrimeBtn = document.getElementById('checkPrimeBtn');
-    const primeResult = document.getElementById('primeResult');
-    const generateLimit = document.getElementById('generateLimit');
-    const generatePrimesBtn = document.getElementById('generatePrimesBtn');
-    const primesDisplay = document.getElementById('primesDisplay');
-    const rangeStart = document.getElementById('rangeStart');
-    const rangeEnd = document.getElementById('rangeEnd');
-    const rangeBtn = document.getElementById('rangeBtn');
-    const rangeDisplay = document.getElementById('rangeDisplay');
-    
-    // Check if number is prime
-    function isPrime(num) {
-        if (num < 2) return false;
-        if (num === 2) return true;
-        if (num % 2 === 0) return false;
-        
-        for (let i = 3; i <= Math.sqrt(num); i += 2) {
-            if (num % i === 0) return false;
-        }
-        return true;
-    }
-    
-    // Check prime
-    function checkPrime() {
-        const num = parseInt(primeInput.value);
-        
-        if (isNaN(num)) {
-            primeResult.textContent = '⚠️ Please enter a valid number!';
-            primeResult.className = 'result-display';
-            return;
-        }
-        
-        if (isPrime(num)) {
-            primeResult.textContent = `✅ ${num} is a Prime Number!`;
-            primeResult.className = 'result-display prime';
-        } else {
-            primeResult.textContent = `❌ ${num} is NOT a Prime Number`;
-            primeResult.className = 'result-display not-prime';
-        }
-    }
-    
-    // Generate primes up to limit
-    function generatePrimes() {
-        const limit = parseInt(generateLimit.value) || 100;
-        primesDisplay.innerHTML = '';
-        
-        const primes = [];
-        for (let i = 2; i <= limit; i++) {
-            if (isPrime(i)) primes.push(i);
-        }
-        
-        primes.forEach((prime, index) => {
-            const el = document.createElement('div');
-            el.className = 'prime-number';
-            el.textContent = prime;
-            el.style.animationDelay = `${index * 0.02}s`;
-            primesDisplay.appendChild(el);
-        });
-        
-        if (primes.length === 0) {
-            primesDisplay.innerHTML = '<p style="color: var(--text-secondary);">No primes found in range</p>';
-        }
-    }
-    
-    // Find primes in range
-    function findPrimesInRange() {
-        const start = parseInt(rangeStart.value) || 1;
-        const end = parseInt(rangeEnd.value) || 50;
-        rangeDisplay.innerHTML = '';
-        
-        const primes = [];
-        for (let i = Math.max(2, start); i <= end; i++) {
-            if (isPrime(i)) primes.push(i);
-        }
-        
-        primes.forEach((prime, index) => {
-            const el = document.createElement('div');
-            el.className = 'prime-number';
-            el.textContent = prime;
-            el.style.animationDelay = `${index * 0.02}s`;
-            rangeDisplay.appendChild(el);
-        });
-        
-        if (primes.length === 0) {
-            rangeDisplay.innerHTML = '<p style="color: var(--text-secondary);">No primes found in range</p>';
-        }
-    }
-    
-    // Event listeners
-    checkPrimeBtn.addEventListener('click', checkPrime);
-    primeInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') checkPrime();
-    });
-    
-    generatePrimesBtn.addEventListener('click', generatePrimes);
-    rangeBtn.addEventListener('click', findPrimesInRange);
-    
-    // Initial generation
-    generatePrimes();
-}
-
-// ============================================
-// TOWER OF HANOI
-// ============================================
-function getTowerOfHanoiHTML() {
-    return `
-        <div class="project-content">
-            <h2>🗼 Tower of Hanoi</h2>
-            <div class="hanoi-container">
-                <div class="controls">
-                    <label>
-                        Number of Disks:
-                        <input type="number" id="diskCount" min="3" max="7" value="3">
-                    </label>
-                    <button class="btn-solve" id="solveBtn">🎯 Solve</button>
-                    <button class="btn-reset" id="resetHanoi">Reset</button>
-                </div>
-                
-                <div class="stats">
-                    <div>Moves: <span id="moveCount">0</span></div>
-                    <div>Optimal: <span id="optimalMoves">7</span></div>
-                </div>
-                
-                <canvas id="hanoiCanvas" width="800" height="400"></canvas>
-            </div>
-        </div>
-        
-        <style>
-            .hanoi-container {
-                padding: 2rem;
-                text-align: center;
-            }
-            
-            .controls {
-                display: flex;
-                gap: 1rem;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 1rem;
-                flex-wrap: wrap;
-            }
-            
-            .controls label {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-            
-            .controls input {
-                width: 80px;
-                padding: 0.5rem;
-                font-size: 1rem;
-                border: 2px solid var(--border-color);
-                border-radius: 8px;
-                background: var(--bg-color);
-                color: var(--text-color);
-                text-align: center;
-            }
-            
-            .btn-solve {
-                background: var(--success-color);
-                color: white;
-                border: none;
-                padding: 0.75rem 2rem;
-                border-radius: 50px;
-                cursor: pointer;
-                font-size: 1rem;
-                transition: var(--transition);
-            }
-            
-            .btn-solve:hover {
-                transform: scale(1.05);
-            }
-            
-            .btn-solve:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-            
-            .stats {
-                display: flex;
-                gap: 2rem;
-                justify-content: center;
-                margin-bottom: 2rem;
-                font-size: 1.2rem;
-                font-weight: bold;
-            }
-            
-            .stats span {
-                color: var(--primary-color);
-            }
-            
-            #hanoiCanvas {
-                background: var(--surface-color);
-                border-radius: 15px;
-                box-shadow: var(--shadow);
-                max-width: 100%;
-                height: auto;
-                display: block;
-                margin: 0 auto;
-            }
-        </style>
-    `;
+function getProjectInstructions(projectName) {
+  // Return instructions from the object above
+  if (projectInstructions[projectName]) {
+    return projectInstructions[projectName];
+  }
+  // Fallback for missing instructions
+  return {
+    title: "ℹ️ How to Use This Project",
+    steps: ["Instructions coming soon. Try exploring the interface!"]
+  };
 }
 
 function initTowerOfHanoi() {
@@ -3462,7 +2046,6 @@ function initTowerOfHanoi() {
     let diskCount = 3;
     let moveCount = 0;
     let isAnimating = false;
-    let shouldStop = false;
     
     const towerX = [200, 400, 600];
     const baseY = 350;
@@ -3474,10 +2057,6 @@ function initTowerOfHanoi() {
         towers = [[], [], []];
         moveCount = 0;
         diskCount = parseInt(diskCountInput.value) || 3;
-
-        //Reset animation state
-        isAnimating = false;
-        solveBtn.disabled = false;
         
         for (let i = diskCount; i >= 1; i--) {
             towers[0].push(i);
@@ -3531,8 +2110,6 @@ function initTowerOfHanoi() {
     }
     
     async function moveDisk(from, to) {
-        if(shouldStop) return;
-
         const disk = towers[from].pop();
         towers[to].push(disk);
         moveCount++;
@@ -3555,289 +2132,1126 @@ function initTowerOfHanoi() {
     
     async function solve() {
         if (isAnimating) return;
-
-    return projects[projectName] || '<h2>Project Coming Soon!</h2>';
+        
+        isAnimating = true;
+        solveBtn.disabled = true;
+        
+        await solveHanoi(diskCount, 0, 2, 1);
+        
+        isAnimating = false;
+        solveBtn.disabled = false;
+    }
+    
+    solveBtn.addEventListener('click', solve);
+    resetBtn.addEventListener('click', initTowers);
+    diskCountInput.addEventListener('change', initTowers);
+    
+    initTowers();
+}
+//N-Queens
+function getNQueensHTML() {
+    return `
+        <div class="project-content">
+            <h2>👑 N-Queens Problem Solver</h2>
+            <div class="nqueens-container">
+                <div class="controls">
+                    <label>
+                        Board Size (N):
+                        <input type="number" id="nValue" min="4" max="12" value="4">
+                    </label>
+                    <button class="btn-solve" id="solveNQueensBtn">🎯 Solve</button>
+                    <button class="btn-reset" id="resetNQueens">Reset</button>
+                </div>
+                
+                <div class="stats">
+                    <div>Total Solutions: <span id="solutionCount">0</span></div>
+                </div>
+                
+                <div id="nQueensOutput" class="solutions"></div>
+            </div>
+        </div>
+        
+        <style>
+            .nqueens-container {
+                padding: 2rem;
+                text-align: center;
+            }
+            .controls {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+                flex-wrap: wrap;
+            }
+            .controls input {
+                width: 80px;
+                padding: 0.5rem;
+                font-size: 1rem;
+                border: 2px solid var(--border-color);
+                border-radius: 8px;
+                background: var(--bg-color);
+                color: var(--text-color);
+                text-align: center;
+            }
+            .solutions {
+                margin-top: 1rem;
+                font-family: monospace;
+                white-space: pre;
+                text-align: left;
+            }
+            .btn-solve {
+                background: var(--success-color);
+                color: white;
+                border: none;
+                padding: 0.75rem 2rem;
+                border-radius: 50px;
+                cursor: pointer;
+                font-size: 1rem;
+                transition: var(--transition);
+            }
+            .btn-solve:hover {
+                transform: scale(1.05);
+            }
+        </style>
+    `;
+}
+function isSafe(board, row, col, n) {
+    for (let i = 0; i < row; i++) if (board[i][col]) return false;
+    for (let i=row, j=col; i>=0 && j>=0; i--, j--) if (board[i][j]) return false;
+    for (let i=row, j=col; i>=0 && j<n; i--, j++) if (board[i][j]) return false;
+    return true;
 }
 
-function getTicTacToeHTML() {
+function solveNQueens(board, row, n, solutions) {
+    if (row === n) {
+        solutions.push(board.map(r => [...r]));
+        return;
+    }
+    for (let col = 0; col < n; col++) {
+        if (isSafe(board, row, col, n)) {
+            board[row][col] = 1;
+            solveNQueens(board, row+1, n, solutions);
+            board[row][col] = 0;
+        }
+    }
+}
+
+function initNQueens() {
+    const solveBtn = document.getElementById('solveNQueensBtn');
+    const resetBtn = document.getElementById('resetNQueens');
+    const output = document.getElementById('nQueensOutput');
+    const solutionCountEl = document.getElementById('solutionCount');
+    const nInput = document.getElementById('nValue');
+
+    function runSolver() {
+        let n = parseInt(nInput.value) || 4;
+        let board = Array.from({length:n}, () => Array(n).fill(0));
+        let solutions = [];
+        solveNQueens(board, 0, n, solutions);
+
+        solutionCountEl.textContent = solutions.length;
+        output.innerHTML = "";
+        solutions.forEach(sol => {
+            let grid = sol.map(row => row.map(cell => cell ? "♛" : "⬜").join(" ")).join("<br>");
+            output.innerHTML += `<pre>${grid}</pre><br>`;
+        });
+    }
+
+    solveBtn.addEventListener('click', runSolver);
+    resetBtn.addEventListener('click', () => {
+        output.innerHTML = "";
+        solutionCountEl.textContent = "0";
+    });
+}
+
+function getProjectileMotionHTML() {
     return `
+        <div class="project-content">
+            <h2>🚀 Projectile Motion Calculator</h2>
+            <div class="projectile-container">
+                <div class="projectile-controls">
+                    <div class="control-group">
+                        <label for="projSpeed">Launch Speed (m/s)</label>
+                        <input id="projSpeed" type="number" min="1" max="200" value="45">
+                    </div>
+                    <div class="control-group">
+                        <label for="projAngle">Launch Angle (°)</label>
+                        <input id="projAngle" type="number" min="1" max="89" value="45">
+                    </div>
+                </div>
+
+                <div class="projectile-actions">
+                    <button class="btn-primary" id="launchProjectileBtn">Launch</button>
+                </div>
+
+                <div class="projectile-stats">
+                    <div class="stat-chip">⏱️ TOF: <span id="projTime">0.00 s</span></div>
+                    <div class="stat-chip">📈 Hmax: <span id="projHeight">0.00 m</span></div>
+                    <div class="stat-chip">📏 Range: <span id="projRange">0.00 m</span></div>
+                </div>
+
+                <canvas id="projectileCanvas" width="760" height="380"></canvas>
+                <p class="projectile-result" id="projectileResult">Set values and launch to calculate TOF, Hmax, and Range.</p>
+            </div>
+        </div>
+
         <style>
-            .tic-tac-toe-container {
+            .projectile-container {
                 text-align: center;
-                padding: 20px;
+                padding: 1.5rem;
             }
 
-            .board {
+            .projectile-controls {
                 display: grid;
-                grid-template-columns: repeat(3, 100px);
-                gap: 10px;
-                justify-content: center;
-                margin: 20px auto;
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                gap: 1rem;
+                margin-bottom: 1rem;
             }
 
-            .cell {
-                width: 100px;
-                height: 100px;
-                font-size: 2rem;
-                font-weight: bold;
-                border: 2px solid #333;
-                background: white;
-                cursor: pointer;
+            .control-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.45rem;
+                text-align: left;
+            }
+
+            .control-group label {
+                font-weight: 600;
+                color: var(--text-secondary);
+            }
+
+            .control-group input {
+                padding: 0.7rem;
+                border: 2px solid var(--border-color);
                 border-radius: 10px;
-            }
-
-            .cell:hover {
-                background-color: #f0f0f0;
-            }
-
-            #status {
-                font-size: 1.2rem;
-                margin: 15px 0;
-                font-weight: bold;
-            }
-
-            .restart-btn {
-                padding: 10px 20px;
-                border: none;
-                background: #4CAF50;
-                color: white;
-                border-radius: 8px;
-                cursor: pointer;
+                background: var(--surface-color);
+                color: var(--text-primary);
                 font-size: 1rem;
             }
 
-            .restart-btn:hover {
-                background: #45a049;
+            .projectile-actions {
+                display: flex;
+                gap: 0.8rem;
+                justify-content: center;
+                margin: 1.2rem 0;
+                flex-wrap: wrap;
+            }
+
+            .btn-primary {
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 0.75rem 1.3rem;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+            }
+
+            .projectile-stats {
+                display: flex;
+                gap: 0.8rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: 1rem;
+            }
+
+            .stat-chip {
+                background: var(--surface-color);
+                border: 1px solid var(--border-color);
+                border-radius: 999px;
+                padding: 0.45rem 0.9rem;
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+
+            #projectileCanvas {
+                width: 100%;
+                max-width: 760px;
+                background: var(--surface-color);
+                border: 2px solid var(--border-color);
+                border-radius: 14px;
+                box-shadow: var(--shadow);
+            }
+
+            .projectile-result {
+                margin-top: 0.9rem;
+                font-size: 1.05rem;
+                font-weight: bold;
+                color: var(--primary-color);
+                min-height: 1.3rem;
             }
         </style>
-
-        <div class="tic-tac-toe-container">
-            <h2>Tic Tac Toe</h2>
-
-            <div class="board">
-                <button class="cell" onclick="makeMove(0)"></button>
-                <button class="cell" onclick="makeMove(1)"></button>
-                <button class="cell" onclick="makeMove(2)"></button>
-
-                <button class="cell" onclick="makeMove(3)"></button>
-                <button class="cell" onclick="makeMove(4)"></button>
-                <button class="cell" onclick="makeMove(5)"></button>
-
-                <button class="cell" onclick="makeMove(6)"></button>
-                <button class="cell" onclick="makeMove(7)"></button>
-                <button class="cell" onclick="makeMove(8)"></button>
-            </div>
-
-            <p id="status">Player X's Turn</p>
-
-            <button class="restart-btn" onclick="resetGame()">
-                Restart Game
-            </button>
-        </div>
     `;
 }
 
-let currentPlayer = 'X';
+function initProjectileMotion() {
+    const g = 9.81;
+    const canvas = document.getElementById('projectileCanvas');
+    const ctx = canvas.getContext('2d');
 
-let board = [
-    '', '', '',
-    '', '', '',
-    '', '', ''
-];
+    const speedInput = document.getElementById('projSpeed');
+    const angleInput = document.getElementById('projAngle');
+    const launchBtn = document.getElementById('launchProjectileBtn');
 
-let gameActive = true;
+    const timeEl = document.getElementById('projTime');
+    const rangeEl = document.getElementById('projRange');
+    const heightEl = document.getElementById('projHeight');
+    const resultEl = document.getElementById('projectileResult');
 
-const winningPatterns = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
+    function drawScene(points, xMax, yMax) {
+        const width = canvas.width;
+        const height = canvas.height;
+        const marginLeft = 50;
+        const marginBottom = 35;
+        const marginTop = 20;
+        const usableWidth = width - marginLeft - 20;
+        const usableHeight = height - marginTop - marginBottom;
 
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
+        const mapX = (x) => marginLeft + (x / xMax) * usableWidth;
+        const mapY = (y) => height - marginBottom - (y / yMax) * usableHeight;
 
-    [0,4,8],
-    [2,4,6]
-];
+        ctx.clearRect(0, 0, width, height);
 
-function makeMove(index) {
+        ctx.fillStyle = '#0f172a10';
+        ctx.fillRect(0, 0, width, height);
 
-    if (!gameActive || board[index] !== '') {
-        return;
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(marginLeft, marginTop);
+        ctx.lineTo(marginLeft, height - marginBottom);
+        ctx.lineTo(width - 20, height - marginBottom);
+        ctx.stroke();
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '12px Arial';
+        ctx.fillText('Height (m)', 8, marginTop + 12);
+        ctx.fillText('Distance (m)', width - 95, height - 10);
+
+        if (points.length > 1) {
+            ctx.strokeStyle = '#2563eb';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(mapX(points[0].x), mapY(points[0].y));
+            for (let i = 1; i < points.length; i++) {
+                ctx.lineTo(mapX(points[i].x), mapY(points[i].y));
+            }
+            ctx.stroke();
+
+            const landing = points[points.length - 1];
+            ctx.fillStyle = '#ef4444';
+            ctx.beginPath();
+            ctx.arc(mapX(landing.x), mapY(landing.y), 6, 0, Math.PI * 2);
+            ctx.fill();
+        }
     }
 
-    const cells = document.querySelectorAll('.cell');
+    function simulate() {
+        const speed = Math.max(1, Number(speedInput.value) || 1);
+        const angleDeg = Math.min(89, Math.max(1, Number(angleInput.value) || 45));
 
-    board[index] = currentPlayer;
+        const angleRad = angleDeg * Math.PI / 180;
+        const totalTime = (2 * speed * Math.sin(angleRad)) / g;
+        const range = (speed * speed * Math.sin(2 * angleRad)) / g;
+        const maxHeight = (speed * speed * Math.sin(angleRad) * Math.sin(angleRad)) / (2 * g);
 
-    cells[index].innerText = currentPlayer;
+        const points = [];
+        const steps = 180;
+        for (let i = 0; i <= steps; i++) {
+            const t = (totalTime * i) / steps;
+            const x = speed * Math.cos(angleRad) * t;
+            const y = speed * Math.sin(angleRad) * t - 0.5 * g * t * t;
+            points.push({ x, y: Math.max(0, y) });
+        }
 
-    if (currentPlayer === 'X') {
-        cells[index].style.color = '#ff4d4d';
-    } else {
-        cells[index].style.color = '#4d79ff';
+        const xMax = Math.max(range, 10) * 1.2;
+        const yMax = Math.max(maxHeight, 10) * 1.25;
+        drawScene(points, xMax, yMax);
+
+        timeEl.textContent = `${totalTime.toFixed(2)} s`;
+        rangeEl.textContent = `${range.toFixed(2)} m`;
+        heightEl.textContent = `${maxHeight.toFixed(2)} m`;
+        resultEl.textContent = '✅ Calculated TOF, Hmax, and Range.';
     }
 
-    // CHECK WINNER FIRST
-    if (checkWinner()) {
+    launchBtn.addEventListener('click', simulate);
 
-        document.getElementById('status').innerText =
-            `Player ${currentPlayer} Wins!`;
-
-        gameActive = false;
-        return;
-    }
-
-    // DRAW CONDITION
-    const isDraw = board.every(cell => cell !== '');
-
-    if (isDraw) {
-
-        document.getElementById('status').innerText =
-            "It's a Draw!";
-
-        gameActive = false;
-        return;
-    }
-
-    // SWITCH PLAYER
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-
-    document.getElementById('status').innerText =
-        `Player ${currentPlayer}'s Turn`;
-}
-
-
-function checkWinner() {
-
-    return winningPatterns.some(pattern => {
-
-        return pattern.every(index => {
-            return board[index] === currentPlayer;
-        });
-
-    });
-}
-
-function resetGame() {
-
-    board = [
-        '', '', '',
-        '', '', '',
-        '', '', ''
-    ];
-
-    currentPlayer = 'X';
-
-    gameActive = true;
-
-    const cells = document.querySelectorAll('.cell');
-
-    cells.forEach(cell => {
-        cell.textContent = '';
+    [speedInput, angleInput].forEach((input) => {
+        input.addEventListener('change', simulate);
     });
 
-    document.getElementById('status').textContent =
-        "Player X's Turn";
+    simulate();
 }
-function getProductivePetHTML() {
+
+function getProgressionRecognizerHTML() {
     return `
-        <div class="productive-pet-container">
-            <h2 class="pet-title">🐱 Productive Pet</h2>
+        <div class="project-content">
+            <h2>📐 AP / GP / AGP / HP Recognizer</h2>
+            <div class="progression-container">
+                <p class="progression-help">
+                    Enter at least 4 numbers separated by commas.<br>
+                    Example: <strong>2, 4, 6, 8</strong> or <strong>3, 6, 12, 24</strong>
+                </p>
 
-            <div class="pet-card">
-                <div class="pet-level" id="petLevel">Level 1</div>
-
-                <div class="pet-emoji">🐱</div>
-
-                <div id="petMood">Tired 🥱</div>
-
-                <div class="xp-container">
-                    <div class="xp-bar">
-                        <div class="xp-fill"></div>
-                    </div>
-                    <span id="xpText">0 / 100 XP</span>
+                <div class="progression-input-wrap">
+                    <label for="progressionInput">Sequence</label>
+                    <input id="progressionInput" type="text" placeholder="e.g. 1, 2, 3, 4">
                 </div>
 
-                <div class="task-input-area">
-                    <input id="taskInput" placeholder="Enter task..." />
-                    <button id="addTaskBtn">Add Task</button>
+                <div class="progression-actions">
+                    <button class="btn-primary" id="recognizeProgressionBtn">Recognize</button>
                 </div>
 
-                <ul id="taskList"></ul>
-
-                <div id="streakText">🔥 Streak: 0</div>
+                <div class="progression-output" id="progressionOutput">Waiting for input...</div>
             </div>
         </div>
+
+        <style>
+            .progression-container {
+                text-align: center;
+                padding: 1.5rem;
+                max-width: 760px;
+                margin: 0 auto;
+            }
+
+            .progression-help {
+                color: var(--text-secondary);
+                line-height: 1.6;
+                margin-bottom: 1rem;
+            }
+
+            .progression-input-wrap {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: left;
+                margin-bottom: 1rem;
+            }
+
+            .progression-input-wrap label {
+                font-weight: 600;
+                color: var(--text-secondary);
+            }
+
+            .progression-input-wrap input {
+                padding: 0.8rem;
+                border-radius: 10px;
+                border: 2px solid var(--border-color);
+                background: var(--surface-color);
+                color: var(--text-primary);
+                font-size: 1rem;
+            }
+
+            .progression-actions {
+                margin: 1rem 0;
+            }
+
+            .progression-output {
+                background: var(--surface-color);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                padding: 1rem;
+                text-align: left;
+                line-height: 1.7;
+                white-space: pre-line;
+                min-height: 90px;
+            }
+        </style>
     `;
 }
 
+function initProgressionRecognizer() {
+    const EPS = 1e-9;
+    const input = document.getElementById('progressionInput');
+    const button = document.getElementById('recognizeProgressionBtn');
+    const output = document.getElementById('progressionOutput');
 
-
-
-
-function initializeProject(projectName) {
-    const initializers = {
-        'tic-tac-toe': initTicTacToe,
-        'rock-paper-scissor': initRockPaperScissor,
-        'dice-rolling': initDiceRolling,
-        'coin-flip': initCoinFlip,
-        'number-guessing': initNumberGuessing,
-        'hangman': initHangman,
-        'word-scramble': initWordScramble,
-        'flames': initFlames,
-        'dots-boxes': initDotsBoxes,
-        'emoji-memory': initEmojiMemoryGame,
-        'fibonacci': initFibonacci,
-        'progression-recognizer': initProgressionRecognizer,
-        'pascal-triangle': initPascalTriangle,
-        'armstrong': initArmstrong,
-        'calculator': initCalculator,
-        'collatz': initCollatz,
-        'prime-analyzer': initPrimeAnalyzer,
-        'projectile-motion': initProjectileMotion,
-        'coordinate-polar-transform': initCoordinatePolarTransform,
-        'derivative-calculator': initDerivativeCalculator,
-        'morse-code': initMorseCode,
-        'tower-of-hanoi': initTowerOfHanoi,
-        'number-converter': initNumberConverter,
-        'typing-speed-tester': initTypingSpeedTester,
-        'snake-game': initSnakeGame,
-        'password-forge': initPasswordForge, // Register Password Forge initializer
-        'spot-the-difference': initSpotTheDifference,
-        'whack-a-mole': initWhackaMole,
-        'flappy-game': initFlappyGame,
-        'productive-pet': initProductivePet,
-        'simon-says': initSimonSays,
-        '2048-game': init2048Game,
-        'color-palette': initColorPalette, 
-        'math-quiz': initMathQuiz,
-    };
-    
-    if (initializers[projectName]) {
-        initializers[projectName]();
+    function isClose(a, b, eps = EPS) {
+        return Math.abs(a - b) <= eps;
     }
+
+    function parseSequence(raw) {
+        const parts = raw
+            .split(',')
+            .map((item) => item.trim())
+            .filter((item) => item.length > 0);
+
+        if (parts.length < 4) {
+            return { error: 'Please enter at least 4 numbers.' };
+        }
+
+        const sequence = [];
+        for (const part of parts) {
+            const value = Number(part);
+            if (!Number.isFinite(value)) {
+                return { error: `Invalid value: ${part}` };
+            }
+            sequence.push(value);
+        }
+
+        return { sequence };
+    }
+
+    function formatNumber(value) {
+        if (isClose(value, Math.round(value))) {
+            return String(Math.round(value));
+        }
+        return Number(value.toFixed(6)).toString();
+    }
+
+    function checkAP(sequence) {
+        const diff = sequence[1] - sequence[0];
+        for (let i = 2; i < sequence.length; i++) {
+            if (!isClose(sequence[i] - sequence[i - 1], diff)) {
+                return { ok: false };
+            }
+        }
+        return { ok: true, diff };
+    }
+
+    function checkGP(sequence) {
+        const allZero = sequence.every((value) => isClose(value, 0));
+        if (allZero) {
+            return { ok: true, ratio: 0 };
+        }
+
+        for (let i = 1; i < sequence.length; i++) {
+            if (isClose(sequence[i - 1], 0)) {
+                return { ok: false };
+            }
+        }
+
+        const ratio = sequence[1] / sequence[0];
+        for (let i = 2; i < sequence.length; i++) {
+            if (!isClose(sequence[i] / sequence[i - 1], ratio)) {
+                return { ok: false };
+            }
+        }
+
+        return { ok: true, ratio };
+    }
+
+    function checkHP(sequence) {
+        if (sequence.some((value) => isClose(value, 0))) {
+            return { ok: false };
+        }
+
+        const reciprocal = sequence.map((value) => 1 / value);
+        const apCheck = checkAP(reciprocal);
+
+        if (!apCheck.ok) {
+            return { ok: false };
+        }
+
+        return { ok: true, reciprocalDiff: apCheck.diff };
+    }
+
+    function agpCandidates(sequence) {
+        const s0 = sequence[0];
+        const s1 = sequence[1];
+        const s2 = sequence[2];
+
+        if (isClose(s0, 0)) {
+            if (isClose(s1, 0)) {
+                return [];
+            }
+            return [s2 / (2 * s1)];
+        }
+
+        const a = s0;
+        const b = -2 * s1;
+        const c = s2;
+        const disc = b * b - 4 * a * c;
+
+        if (disc < -EPS) {
+            return [];
+        }
+
+        if (isClose(disc, 0)) {
+            return [-b / (2 * a)];
+        }
+
+        if (disc < 0) {
+            return [];
+        }
+
+        const sqrtDisc = Math.sqrt(disc);
+        const r1 = (-b + sqrtDisc) / (2 * a);
+        const r2 = (-b - sqrtDisc) / (2 * a);
+
+        if (isClose(r1, r2)) {
+            return [r1];
+        }
+
+        return [r1, r2];
+    }
+
+    function checkAGP(sequence) {
+        for (const ratio of agpCandidates(sequence)) {
+            let valid = true;
+
+            for (let i = 2; i < sequence.length; i++) {
+                const expected = 2 * ratio * sequence[i - 1] - ratio * ratio * sequence[i - 2];
+                if (!isClose(sequence[i], expected, 1e-7)) {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if (valid) {
+                return { ok: true, ratio };
+            }
+        }
+
+        return { ok: false };
+    }
+
+    function recognize() {
+        const parsed = parseSequence(input.value);
+        if (parsed.error) {
+            output.textContent = `❌ ${parsed.error}`;
+            return;
+        }
+
+        const sequence = parsed.sequence;
+        const matches = [];
+
+        const ap = checkAP(sequence);
+        if (ap.ok) {
+            matches.push(`- AP (d = ${formatNumber(ap.diff)})`);
+        }
+
+        const gp = checkGP(sequence);
+        if (gp.ok) {
+            matches.push(`- GP (r = ${formatNumber(gp.ratio)})`);
+        }
+
+        const agp = checkAGP(sequence);
+        if (agp.ok) {
+            matches.push(`- AGP (r = ${formatNumber(agp.ratio)})`);
+        }
+
+        const hp = checkHP(sequence);
+        if (hp.ok) {
+            matches.push(`- HP (reciprocal AP d = ${formatNumber(hp.reciprocalDiff)})`);
+        }
+
+        const header = `Sequence: ${sequence.map(formatNumber).join(', ')}`;
+        if (matches.length === 0) {
+            output.textContent = `${header}\n\n❌ Not AP, GP, AGP, or HP for these terms.`;
+            return;
+        }
+
+        output.textContent = `${header}\n\n✅ Recognized as:\n${matches.join('\n')}`;
+    }
+
+    button.addEventListener('click', recognize);
+    input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            recognize();
+        }
+    });
 }
+
+function getCoordinatePolarTransformHTML() {
+    return `
+        <div class="project-content">
+            <h2>🧭 Coordinate to Polar Transformation</h2>
+            <div class="coord-polar-container">
+                <p class="coord-polar-help">Enter Cartesian coordinates (x, y) to get polar form (r, theta).</p>
+
+                <div class="coord-grid">
+                    <div class="control-group">
+                        <label for="cartesianX">X Coordinate</label>
+                        <input id="cartesianX" type="number" step="any" value="3">
+                    </div>
+                    <div class="control-group">
+                        <label for="cartesianY">Y Coordinate</label>
+                        <input id="cartesianY" type="number" step="any" value="4">
+                    </div>
+                </div>
+
+                <div class="coord-actions">
+                    <button class="btn-primary" id="convertCoordinateBtn">Convert</button>
+                </div>
+
+                <div class="coord-stats">
+                    <div class="stat-chip">📏 r: <span id="polarRadius">0</span></div>
+                    <div class="stat-chip">📐 theta (deg): <span id="polarThetaDeg">0</span></div>
+                    <div class="stat-chip">🔁 theta (rad): <span id="polarThetaRad">0</span></div>
+                </div>
+
+                <canvas id="coordPolarCanvas" width="760" height="360"></canvas>
+                <p class="coord-result" id="coordPolarResult">Click convert to visualize the point and its polar angle.</p>
+            </div>
+        </div>
+
+        <style>
+            .coord-polar-container {
+                text-align: center;
+                padding: 1.5rem;
+                max-width: 780px;
+                margin: 0 auto;
+            }
+
+            .coord-polar-help {
+                color: var(--text-secondary);
+                margin-bottom: 1rem;
+            }
+
+            .coord-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .coord-actions {
+                margin-bottom: 1rem;
+            }
+
+            .coord-stats {
+                display: flex;
+                gap: 0.8rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: 1rem;
+            }
+
+            #coordPolarCanvas {
+                width: 100%;
+                max-width: 760px;
+                background: var(--surface-color);
+                border: 2px solid var(--border-color);
+                border-radius: 14px;
+                box-shadow: var(--shadow);
+            }
+
+            .coord-result {
+                margin-top: 0.9rem;
+                font-size: 1.05rem;
+                font-weight: 700;
+                color: var(--primary-color);
+                min-height: 1.3rem;
+            }
+        </style>
+    `;
 }
 
-//Removed Redundant game and project Logics and seperated them to different individual files located at (web-app/js/projects/)
+function initCoordinatePolarTransform() {
+    const xInput = document.getElementById('cartesianX');
+    const yInput = document.getElementById('cartesianY');
+    const convertBtn = document.getElementById('convertCoordinateBtn');
 
-// ============================================================================
-// ARCHITECTURAL NOTE: INDIVIDUAL PROJECT MODULES
-// ============================================================================
-// All specific HTML templates, inline CSS styles, and interactive game/tool 
-// logic have been extracted from this registry file to enforce a clean, 
-// modular design patterns.
-//
-// If you are looking to modify, fix, or understand how a specific project works:
-// 1. Do NOT add game logics, event listeners, or variables to this file.
-// 2. Open the dedicated script file under the 'js/projects/' directory.
-//    - e.g., For Rock Paper Scissors, see: js/projects/rock-paper-scissor.js
-//    - e.g., For FLAMES, see: js/projects/flames.js
-//    - e.g., For the Calculator, see: js/projects/calculator.js
-//
-// Each individual script file globally registers exactly two hooks:
-//    - get[ProjectName]HTML() : Returns the structural layout and specific styles.
-//    - init[ProjectName]()    : Sets up localized states, scopes, and event listeners.
-// ============================================================================
+    const radiusEl = document.getElementById('polarRadius');
+    const thetaDegEl = document.getElementById('polarThetaDeg');
+    const thetaRadEl = document.getElementById('polarThetaRad');
+    const resultEl = document.getElementById('coordPolarResult');
 
+    const canvas = document.getElementById('coordPolarCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function formatNumber(value) {
+        if (Math.abs(value - Math.round(value)) < 1e-9) {
+            return String(Math.round(value));
+        }
+        return Number(value.toFixed(6)).toString();
+    }
+
+    function quadrantOf(x, y) {
+        if (x === 0 && y === 0) return 'Origin';
+        if (x > 0 && y > 0) return 'Quadrant I';
+        if (x < 0 && y > 0) return 'Quadrant II';
+        if (x < 0 && y < 0) return 'Quadrant III';
+        if (x > 0 && y < 0) return 'Quadrant IV';
+        if (x === 0) return 'Y-axis';
+        return 'X-axis';
+    }
+
+    function drawCoordinatePlane(x, y, radius, thetaRad) {
+        const width = canvas.width;
+        const height = canvas.height;
+        const cx = width / 2;
+        const cy = height / 2;
+
+        const maxAbs = Math.max(5, Math.abs(x), Math.abs(y));
+        const scale = (Math.min(width, height) / 2 - 35) / maxAbs;
+
+        ctx.clearRect(0, 0, width, height);
+
+        ctx.fillStyle = '#0f172a10';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.5;
+
+        ctx.beginPath();
+        ctx.moveTo(20, cy);
+        ctx.lineTo(width - 20, cy);
+        ctx.moveTo(cx, 20);
+        ctx.lineTo(cx, height - 20);
+        ctx.stroke();
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '12px Arial';
+        ctx.fillText('x', width - 28, cy - 8);
+        ctx.fillText('y', cx + 10, 30);
+
+        const px = cx + x * scale;
+        const py = cy - y * scale;
+
+        ctx.strokeStyle = '#2563eb';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(px, py);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, Math.max(26, radius * scale * 0.25), 0, -thetaRad, thetaRad < 0);
+        ctx.stroke();
+
+        ctx.fillStyle = '#ef4444';
+        ctx.beginPath();
+        ctx.arc(px, py, 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#ef4444';
+        ctx.fillText(`(${formatNumber(x)}, ${formatNumber(y)})`, px + 8, py - 8);
+    }
+
+    function convert() {
+        const x = Number(xInput.value);
+        const y = Number(yInput.value);
+
+        if (!Number.isFinite(x) || !Number.isFinite(y)) {
+            resultEl.textContent = '❌ Please enter valid numeric coordinates.';
+            return;
+        }
+
+        const radius = Math.hypot(x, y);
+        const thetaRad = Math.atan2(y, x);
+        let thetaDeg = (thetaRad * 180) / Math.PI;
+        if (thetaDeg < 0) {
+            thetaDeg += 360;
+        }
+
+        radiusEl.textContent = formatNumber(radius);
+        thetaDegEl.textContent = formatNumber(thetaDeg);
+        thetaRadEl.textContent = formatNumber(thetaRad);
+
+        drawCoordinatePlane(x, y, radius, thetaRad);
+        resultEl.textContent = `✅ ${quadrantOf(x, y)} | Polar: r = ${formatNumber(radius)}, theta = ${formatNumber(thetaDeg)} degrees`;
+    }
+
+    convertBtn.addEventListener('click', convert);
+    [xInput, yInput].forEach((input) => {
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                convert();
+            }
+        });
+    });
+
+    convert();
+}
+
+function getDerivativeCalculatorHTML() {
+    return `
+        <div class="project-content">
+            <h2>∂ Polynomial Derivative Calculator</h2>
+            <div class="derivative-container">
+                <p class="derivative-help">Enter coefficients from highest power to constant. Example: <strong>3,0,-2,7</strong> for 3x^3 - 2x + 7.</p>
+
+                <div class="control-group">
+                    <label for="derivativeCoeffs">Coefficients</label>
+                    <input id="derivativeCoeffs" type="text" placeholder="e.g. 3,0,-2,7">
+                </div>
+
+                <div class="derivative-grid">
+                    <div class="control-group">
+                        <label for="derivativeOrder">Derivative Order (n)</label>
+                        <input id="derivativeOrder" type="number" min="1" value="1">
+                    </div>
+                    <div class="control-group">
+                        <label for="derivativeX">Evaluate At x</label>
+                        <input id="derivativeX" type="number" step="any" value="1">
+                    </div>
+                </div>
+
+                <div class="derivative-actions">
+                    <button class="btn-primary" id="calcFirstDerivativeBtn">1st Derivative</button>
+                    <button class="btn-primary" id="calcNthDerivativeBtn">Nth Derivative</button>
+                    <button class="btn-primary" id="evalDerivativeBtn">Evaluate</button>
+                </div>
+
+                <div class="derivative-output" id="derivativeOutput">Waiting for input...</div>
+            </div>
+        </div>
+
+        <style>
+            .derivative-container {
+                text-align: center;
+                padding: 1.5rem;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .derivative-help {
+                color: var(--text-secondary);
+                margin-bottom: 1rem;
+                line-height: 1.6;
+            }
+
+            .derivative-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .derivative-actions {
+                display: flex;
+                gap: 0.8rem;
+                justify-content: center;
+                margin: 1rem 0;
+                flex-wrap: wrap;
+            }
+
+            .derivative-output {
+                background: var(--surface-color);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                padding: 1rem;
+                text-align: left;
+                white-space: pre-line;
+                min-height: 110px;
+                line-height: 1.7;
+            }
+        </style>
+    `;
+}
+
+function initDerivativeCalculator() {
+    const coeffInput = document.getElementById('derivativeCoeffs');
+    const orderInput = document.getElementById('derivativeOrder');
+    const xInput = document.getElementById('derivativeX');
+
+    const firstBtn = document.getElementById('calcFirstDerivativeBtn');
+    const nthBtn = document.getElementById('calcNthDerivativeBtn');
+    const evalBtn = document.getElementById('evalDerivativeBtn');
+
+    const output = document.getElementById('derivativeOutput');
+
+    function formatNumber(value) {
+        if (Math.abs(value - Math.round(value)) < 1e-9) {
+            return String(Math.round(value));
+        }
+        return Number(value.toFixed(6)).toString();
+    }
+
+    function parseCoefficients(raw) {
+        const parts = raw
+            .split(',')
+            .map((item) => item.trim())
+            .filter((item) => item.length > 0);
+
+        if (parts.length === 0) {
+            return { error: 'Please enter at least one coefficient.' };
+        }
+
+        const coeffs = [];
+        for (const part of parts) {
+            const value = Number(part);
+            if (!Number.isFinite(value)) {
+                return { error: `Invalid coefficient: ${part}` };
+            }
+            coeffs.push(value);
+        }
+
+        while (coeffs.length > 1 && Math.abs(coeffs[0]) < 1e-12) {
+            coeffs.shift();
+        }
+
+        return { coeffs };
+    }
+
+    function derivativeCoeffs(coeffs) {
+        const degree = coeffs.length - 1;
+        if (degree <= 0) {
+            return [0];
+        }
+
+        const out = [];
+        for (let i = 0; i < coeffs.length - 1; i++) {
+            const power = degree - i;
+            out.push(coeffs[i] * power);
+        }
+        return out;
+    }
+
+    function nthDerivativeCoeffs(coeffs, n) {
+        let result = coeffs.slice();
+        for (let i = 0; i < n; i++) {
+            result = derivativeCoeffs(result);
+            if (result.length === 1 && Math.abs(result[0]) < 1e-12) {
+                return [0];
+            }
+        }
+        return result;
+    }
+
+    function evaluate(coeffs, x) {
+        let value = 0;
+        for (const coeff of coeffs) {
+            value = value * x + coeff;
+        }
+        return value;
+    }
+
+    function polynomialToString(coeffs) {
+        const degree = coeffs.length - 1;
+        const terms = [];
+
+        for (let i = 0; i < coeffs.length; i++) {
+            const coeff = coeffs[i];
+            const power = degree - i;
+            if (Math.abs(coeff) < 1e-12) {
+                continue;
+            }
+
+            const sign = coeff >= 0 ? '+' : '-';
+            const absCoeff = Math.abs(coeff);
+            let body = '';
+
+            if (power === 0) {
+                body = formatNumber(absCoeff);
+            } else if (power === 1) {
+                body = Math.abs(absCoeff - 1) < 1e-12 ? 'x' : `${formatNumber(absCoeff)}x`;
+            } else {
+                body = Math.abs(absCoeff - 1) < 1e-12 ? `x^${power}` : `${formatNumber(absCoeff)}x^${power}`;
+            }
+
+            terms.push({ sign, body });
+        }
+
+        if (terms.length === 0) {
+            return '0';
+        }
+
+        let expression = terms[0].sign === '+' ? terms[0].body : `-${terms[0].body}`;
+        for (let i = 1; i < terms.length; i++) {
+            expression += ` ${terms[i].sign} ${terms[i].body}`;
+        }
+        return expression;
+    }
+
+    function getInputs() {
+        const parsed = parseCoefficients(coeffInput.value);
+        if (parsed.error) {
+            output.textContent = `❌ ${parsed.error}`;
+            return null;
+        }
+
+        const order = Math.max(1, parseInt(orderInput.value, 10) || 1);
+        const x = Number(xInput.value);
+
+        if (!Number.isFinite(x)) {
+            output.textContent = '❌ Please enter a valid x value.';
+            return null;
+        }
+
+        return { coeffs: parsed.coeffs, order, x };
+    }
+
+    firstBtn.addEventListener('click', () => {
+        const data = getInputs();
+        if (!data) return;
+
+        const first = derivativeCoeffs(data.coeffs);
+        output.textContent = `f(x) = ${polynomialToString(data.coeffs)}\n\nf'(x) = ${polynomialToString(first)}`;
+    });
+
+    nthBtn.addEventListener('click', () => {
+        const data = getInputs();
+        if (!data) return;
+
+        const nth = nthDerivativeCoeffs(data.coeffs, data.order);
+        output.textContent = `f(x) = ${polynomialToString(data.coeffs)}\n\n${data.order}th derivative = ${polynomialToString(nth)}`;
+    });
+
+    evalBtn.addEventListener('click', () => {
+        const data = getInputs();
+        if (!data) return;
+
+        const nth = nthDerivativeCoeffs(data.coeffs, data.order);
+        const value = evaluate(nth, data.x);
+        output.textContent = `f(x) = ${polynomialToString(data.coeffs)}\n\nDerivative used: ${polynomialToString(nth)}\nValue at x = ${formatNumber(data.x)} is ${formatNumber(value)}`;
+    });
+}
+function initializeProject(projectName) {
+  const initializers = {
+    "tic-tac-toe": "initTicTacToe",
+    "rock-paper-scissor": "initRockPaperScissor",
+    "dice-rolling": "initDiceRolling",
+    "coin-flip": "initCoinFlip",
+    "blackjack-21": "initBlackjack",
+    "number-guessing": "initNumberGuessing",
+    hangman: "initHangman",
+    "word-scramble": "initWordScramble",
+    flames: "initFlames",
+    "dots-boxes": "initDotsBoxes",
+    "emoji-memory": "initEmojiMemoryGame",
+    fibonacci: "initFibonacci",
+    "binary-search": "initBinarySearch",
+    "bubble-sort": "initBubbleSort",
+    "quick-sort": "initQuickSort",
+    "merge-sort": "initMergeSort",
+    "progression-recognizer": "initProgressionRecognizer",
+    "pascal-triangle": "initPascalTriangle",
+    armstrong: "initArmstrong",
+    calculator: "initCalculator",
+    collatz: "initCollatz",
+    "prime-analyzer": "initPrimeAnalyzer",
+    "projectile-motion": "initProjectileMotion",
+    "coordinate-polar-transform": "initCoordinatePolarTransform",
+    "derivative-calculator": "initDerivativeCalculator",
+    "morse-code": "initMorseCode",
+    "tower-of-hanoi": "initTowerOfHanoi",
+    "number-converter": "initNumberConverter",
+    "typing-speed-tester": "initTypingSpeedTester",
+    "snake-game": "initSnakeGame",
+    "password-forge": "initPasswordForge",
+    "spot-the-difference": "initSpotTheDifference",
+    "whack-a-mole": "initWhackaMole",
+    "flappy-game": "initFlappyGame",
+    "productive-pet": "initProductivePet",
+    "simon-says": "initSimonSays",
+    "2048-game": "init2048Game",
+    "color-palette": "initColorPalette",
+    "math-quiz": "initMathQuiz",
+    "resume-analyzer": "initAIResumeAnalyzer",
+    "caesar-cipher": "initCaesarCipher",
+    "sudoku-game": "initSudokuGame",
+    "resume-analyzer": "initResumeAnalyzer",
+    "caesar-cipher": "initCaesarCipher",
+    "war-card-game": "initWarCardGame",
+    "number-sliding-puzzle": "initNumberSlidingPuzzle",
+    "budget-tracker": "initBudgetTracker",
+    "fourier-series": "initFourierSeries",
+    "pathfinding-visualizer": "initPathfindingVisualizer",
+    "tsp-visualizer": "initTspVisualizer"
+  };
+
+  const initializerName = initializers[projectName];
+  if (initializerName && typeof window[initializerName] === "function") {
+    window[initializerName]();
+  }
+}

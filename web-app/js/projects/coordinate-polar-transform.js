@@ -31,7 +31,7 @@ function getCoordinatePolarTransformHTML() {
             </div>
         </div>
 
-        <style>
+         <style>
             .coord-polar-container {
                 text-align: center;
                 padding: 1.5rem;
@@ -79,23 +79,16 @@ function getCoordinatePolarTransformHTML() {
                 color: var(--primary-color);
                 min-height: 1.3rem;
             }
-            #cartesianX{
-                padding:15px;
-                border-radius:30px;
-                outline:none;
-                background-color:var(--bg-color);
-                border:1px solid white;
-            }
-            #cartesianY{
-                padding:15px;
-                border-radius:30px;
-                outline:none;
-                background-color:var(--bg-color);
-                border:1px solid white;
-            }
-            .btn-primary{
-                padding:15px;
-                border-radius:30px;
+
+            #cartesianX,
+            #cartesianY {
+                padding: 15px;
+                border-radius: 30px;
+                outline: none;
+                background-color: var(--bg-color);
+                border: 1px solid white;
+                color: var(--text-color);
+                width: 100%;
             }
         </style>
     `;

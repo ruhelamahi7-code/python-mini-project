@@ -260,6 +260,23 @@ function getColorPaletteHTML() {
                 font-family: 'Courier New', Courier, monospace;
                 white-space: pre;
             }
+            /* Fix: Light mode button text contrast */
+            [data-theme='light'] .cp-btn-primary {
+                color: #1a1a2e !important;
+            }
+
+            /* Fix: Dropdown text contrast for both themes */
+            [data-theme='light'] .cp-form-group select {
+                background: #ffffff;
+                color: #1a1a2e;
+                border-color: #cbd5e1;
+            }
+
+            [data-theme='dark'] .cp-form-group select {
+                background: #1e1e2e;
+                color: #e2e8f0;
+                border-color: #334155;
+            }
         </style>
     `;
 }
@@ -681,7 +698,7 @@ function initColorPalette() {
         if (!palette) return;
 
         const swatchContainer = document.getElementById('cpSwatches');
-        swatchContainer.innerHTML = '';
+        swatchContainer.textContent = '';
 
         palette.colors.forEach(color => {
             const swatch = document.createElement('div');
@@ -713,7 +730,6 @@ function initColorPalette() {
 
         output.style.display = 'block';
         controls.style.display = 'none';
-        output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
     copyBtn.addEventListener('click', () => {

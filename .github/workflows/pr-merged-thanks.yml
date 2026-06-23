@@ -25,10 +25,5 @@ jobs:
               body: `🎉 **Thank you for your contribution!**
 
             Your Pull Request has been merged successfully.
-
-            We appreciate the time and effort you put into improving this project. Contributions like yours help the repository grow and stay useful for everyone.
-
-            If you'd like to contribute again, please check the open issues and make sure you are assigned before opening another Pull Request.
-
             Thanks again for your support! 🙌`
             });

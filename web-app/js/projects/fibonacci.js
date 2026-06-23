@@ -17,10 +17,44 @@ function getFibonacciHTML() {
             </div>
         </div>
         
-        <style>
+           <style>
             .fibonacci-container {
                 padding: 2rem;
                 text-align: center;
+            }
+
+            .controls {
+                display: flex;
+                gap: 15px;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .controls label {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 1rem;
+                font-weight: 500;
+                color: var(--text-secondary);
+            }
+
+            #fibTerms {
+                padding: 12px 16px;
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                border: 2px solid var(--border-color);
+                outline: none;
+                border-radius: 30px;
+                width: 80px;
+                text-align: center;
+                font-size: 1rem;
+                transition: border-color 0.3s ease;
+            }
+
+            #fibTerms:focus {
+                border-color: var(--accent);
             }
             
             .fib-display {
@@ -48,18 +82,11 @@ function getFibonacciHTML() {
                 max-width: 100%;
                 height: auto;
             }
-            #fibTerms{
-                padding:13px;
-                background-color:var(--bg-color);
-                border:1px solid white;
-                outline:none;
-                border-radius:30px;
-            }
-            .controls{
-                display:flex;
-                gap:15px;
-                align-items:center;
-                justify-content:center;
+
+            .fib-error {
+                color: var(--danger-color);
+                font-weight: bold;
+                margin-top: 1rem;
             }
         </style>
     `;
@@ -73,14 +100,27 @@ function initFibonacci() {
     const ctx = canvas.getContext('2d');
     
     function generateFibonacci() {
-        const n = parseInt(termsInput.value) || 10;
-        display.innerHTML = '';
-        
+        const value = termsInput.value.trim();
+        const n = parseInt(value);
+
+        // Validation
+        if (value === '' || isNaN(n) || n <= 0) {
+            display.textContent = `
+                <p class="fib-error">
+                    Please enter a number greater than 0
+                </p>
+            `;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
+        display.textContent = '';
+    
         let fib = [0, 1];
         for (let i = 2; i < n; i++) {
-            fib[i] = fib[i-1] + fib[i-2];
+            fib[i] = fib[i - 1] + fib[i - 2];
         }
-        
+
         fib.slice(0, n).forEach((num, index) => {
             const numEl = document.createElement('div');
             numEl.className = 'fib-number';
@@ -88,7 +128,7 @@ function initFibonacci() {
             numEl.style.animationDelay = `${index * 0.1}s`;
             display.appendChild(numEl);
         });
-        
+
         drawSpiral(fib.slice(0, Math.min(n, 12)));
     }
     
@@ -119,10 +159,11 @@ function initFibonacci() {
                 Math.PI * (direction + 1) / 2);
             ctx.stroke();
             
+            const nextTerm = (fib[i+1] !== undefined ? fib[i+1] : num);
             switch(direction) {
-                case 0: y -= fib[i+1] * scale; break;
+                case 0: y -= nextTerm * scale; break;
                 case 1: x -= size; break;
-                case 2: y -= size; x -= fib[i+1] * scale; break;
+                case 2: y -= size; x -= nextTerm * scale; break;
                 case 3: x += size; break;
             }
             
