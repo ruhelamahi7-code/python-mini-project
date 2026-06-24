@@ -100,55 +100,6 @@ var selectedSuggestionIndex = -1;
 var projectCards = [];
 var recentSearches = JSON.parse(localStorage.getItem("recentSearches") || "[]");
 
-// ============================================
-// INFO MODAL FUNCTIONS
-// ============================================
-
-function showInfoModal(title, steps) {
-  var overlay = document.getElementById("infoModalOverlay");
-  var titleEl = document.getElementById("infoModalTitle");
-  var listEl = document.getElementById("infoModalList");
-
-  if (!overlay || !titleEl || !listEl) return;
-
-  titleEl.textContent = title;
-  listEl.innerHTML = ""; // Safely clear the existing list
-  steps.forEach(function (step) {
-    const li = document.createElement("li");
-    li.textContent = step; // textContent automatically escapes malicious scripts!
-    listEl.appendChild(li);
-  });
-
-  const toggleBackToTopButton = () => {
-    if (!backToTopButton) return;
-    backToTopButton.classList.toggle('visible', window.scrollY > 300);
-  };
-  overlay.classList.add("active");
-
-  function closeModal() {
-    overlay.classList.remove("active");
-    closeBtn.removeEventListener("click", closeModal);
-    gotItBtn.removeEventListener("click", closeModal);
-    overlay.removeEventListener("click", overlayClick);
-  }
-
-  if (backToTopButton) {
-    backToTopButton.addEventListener('click', () => {
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-    });
-  }
-  function overlayClick(e) {
-    if (e.target === overlay) closeModal();
-  }
-
-  var closeBtn = document.getElementById("infoModalClose");
-  var gotItBtn = document.getElementById("infoModalGotIt");
-
-  closeBtn.addEventListener("click", closeModal);
-  gotItBtn.addEventListener("click", closeModal);
-  overlay.addEventListener("click", overlayClick);
-}
 
 // Themed confirmation modal (in-page) helper
 function showConfirm(message, onConfirm, onCancel) {
@@ -188,24 +139,6 @@ function showConfirm(message, onConfirm, onCancel) {
 
 window.showConfirm = showConfirm;
 
-var currentProjectName = "";
-
-function setupModalInfoButton(projectName) {
-  currentProjectName = projectName;
-  var infoBtn = document.getElementById("modalInfoBtn");
-  if (!infoBtn) return;
-
-  // Remove old listener by cloning
-  var newBtn = infoBtn.cloneNode(true);
-  infoBtn.parentNode.replaceChild(newBtn, infoBtn);
-
-  newBtn.addEventListener("click", function () {
-    if (typeof getProjectInstructions === "function") {
-      var info = getProjectInstructions(currentProjectName);
-      showInfoModal(info.title, info.steps);
-    }
-  });
-}
 
 /* ── DOMContentLoaded ──────────────────────────────────────── */
 document.addEventListener("DOMContentLoaded", function () {
