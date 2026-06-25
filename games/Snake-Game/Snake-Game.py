@@ -233,6 +233,7 @@ def main():
     game_text.write("Press SPACEBAR to Start", align="center", font=("Arial", 24, "bold"))
 
     def game_loop():
+        global game_state, score, high_score, level, speed
         screen.update()
 
         if game_state in ["IDLE", "PAUSED", "GAME_OVER"]:
@@ -307,6 +308,7 @@ def main():
         screen.ontimer(game_loop, int(speed * 1000))
 
     screen.ontimer(game_loop, 100)
+    screen.mainloop()
 
 if __name__ == '__main__':
     main()
