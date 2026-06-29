@@ -7284,3 +7284,54 @@ color:var(--accent);
 .stats-card p{
 color:var(--text-secondary);
 }
+.history-actions{
+display:flex;
+gap:15px;
+align-items:center;
+}
+
+#historySearch{
+
+padding:10px 16px;
+
+border-radius:10px;
+
+border:1px solid var(--border);
+
+background:var(--surface);
+
+color:var(--text);
+
+}
+
+#clearHistoryBtn{
+
+padding:10px 18px;
+
+border-radius:10px;
+
+background:#ef4444;
+
+color:white;
+
+transition:.3s;
+
+}
+
+#clearHistoryBtn:hover{
+
+transform:translateY(-2px);
+
+opacity:.9;
+
+}
+
+#historyCount{
+
+font-size:16px;
+
+color:#22c55e;
+
+margin-left:8px;
+
+}
