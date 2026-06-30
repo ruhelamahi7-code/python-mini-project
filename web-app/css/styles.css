@@ -7189,34 +7189,3 @@ body.sidebar-collapsed .sidebar-dock .sidebar-footer .sidebar-main-controls {
     }
 
 }
-
-.newsletter-form{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  margin-top: 10px;
-}
-
-.footer-input {
-  font-size: larger;
-  border-radius: 10px;
-  outline: none;
-  border: none;
-  padding: 5px;
-  font-family: var(--font-sans);
-}
-
-.newsletter-form button{
-  padding: 8px 20px;
-  border-radius: 10px;
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text);
-  box-shadow: 0 12px 0 rgba(0, 0, 0, 0.06), 0 16px 32px rgba(34, 197, 94, 0.3);
-    background: linear-gradient(135deg, #22c55e, #14b8a6);
-  border: 1px solid var(--border);
-  transition: all var(--duration-fast) ease;
-  white-space: nowrap;
-}
