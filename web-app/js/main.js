@@ -1282,7 +1282,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (typeof initializeProject === "function") {
         initializeProject(name);
       }
-      setupModalInfoButton(name);
+      // setupModalInfoButton(name);
 
       // Inject info button - FIXED for Tic Tac Toe and all projects
       var projectContent = modalBody.querySelector(".project-content");
@@ -1567,6 +1567,14 @@ document.addEventListener("DOMContentLoaded", function () {
     var section = document.getElementById("recentlyViewedSection");
     if (!grid || !section) return;
     var recent = JSON.parse(localStorage.getItem("recentProjects") || "[]");
+    const historyBadge =
+document.getElementById("historyCountBadge");
+
+if(historyBadge){
+
+historyBadge.textContent=`(${recent.length})`;
+
+}
     console.log("[DEBUG] recentProjects array:", recent); if (recent.length === 0) {
       section.style.display = "none";
       return;
@@ -1966,4 +1974,29 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initial card filtering state update
   updateProjectVisibility(currentCategory, currentSearchQuery);
   window.updateRecentlyViewed();
+
+  const clearBtn =
+document.getElementById("clearHistoryBtn");
+
+if(clearBtn){
+
+clearBtn.addEventListener("click",()=>{
+
+showConfirm(
+"Clear recently viewed projects?",
+()=>{
+
+localStorage.removeItem("recentProjects");
+
+window.updateRecentlyViewed();
+
+showToast("History Cleared");
+
+}
+
+);
+
+});
+
+}
 });
