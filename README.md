@@ -216,7 +216,7 @@ pytest tests/ -v
 For specific test file:
 
 ```bash
-pytest tests/test_armstrong.py -v
+pytest tests/test_smoke.py -v
 ```
 
 ### Development Workflow
