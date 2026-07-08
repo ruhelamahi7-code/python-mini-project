@@ -48,13 +48,19 @@ async def fetch_phrase_async():
         "https://api.quotable.io/random"
     ]
     async with aiohttp.ClientSession() as session:
-        tasks = [fetch_url(session, url) for url in urls]
-        # Gather them concurrently
-        results = await asyncio.gather(*tasks)
-        for res in results:
-            if res:
-                return res
-    return None
+        tasks = {asyncio.create_task(fetch_url(session, url)) for url in urls}
+        
+        while tasks:
+            done, tasks = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+            for task in done:
+                result = task.result()
+                if result:
+                    # Cancel remaining tasks — we got what we need
+                    for t in tasks:
+                        t.cancel()
+                    return result
+        
+        return None
 
 
 def main():
