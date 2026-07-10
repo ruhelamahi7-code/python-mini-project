@@ -11,6 +11,9 @@
 
 **🚀 Perfect for beginners | 💡 Learn by doing | 🎨 Beautiful UI | ⚡ Zero setup required**
 
+### 🧪 New: Standardized Error Logging
+A shared error logger is now available for mini-projects. It captures exception type, message, timestamp, traceback, and project name into JSONL logs under the logs folder, making failures easier to review and analyze.
+
 [Quick Start](#-quick-start) • [Projects](#-projects) • [Features](#-features) • [Contributing](#-contributing)
 
 ---
