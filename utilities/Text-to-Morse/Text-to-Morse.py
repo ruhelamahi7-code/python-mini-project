@@ -1,4 +1,12 @@
 import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+
+from error_logger import log_exception
+
+print("📻 Morse Code Translator 📻")
+print("Translate text to Morse code and vice versa\n")
 import time
 
 morse_code = {
@@ -25,6 +33,7 @@ INTER_CHAR_GAP = 300   # ms  – silence between letters
 WORD_GAP       = 700   # ms  – silence for word separator '/'
 BEEP_FREQ      = 700   # Hz  – comfortable mid-range tone
 
+def main():
 
 def _sleep_ms(ms: int) -> None:
     """Sleep for *ms* milliseconds."""
@@ -93,6 +102,59 @@ def main():
         print("3️⃣  View Morse Code Chart")
         print("4️⃣  Exit")
         print("=" * 50)
+        
+        choice = input("\n➡️  Enter your choice (1-4): ")
+        
+        if choice == '1':
+            text = input("\n📝 Enter text to convert: ").upper()
+            morse_result = []
+            
+            for char in text:
+                if char in morse_code:
+                    morse_result.append(morse_code[char])
+                elif char == ' ':
+                    morse_result.append('/')
+            
+            morse_output = ' '.join(morse_result)
+            print(f"\n📻 Morse Code: {morse_output}\n")
+        
+        elif choice == '2':
+            morse_input = input("\n📻 Enter Morse code (separate letters with space, words with ' / '): ")
+            morse_chars = morse_input.split(' ')
+            text_result = []
+            
+            for code in morse_chars:
+                if code in reverse_morse:
+                    text_result.append(reverse_morse[code])
+                elif code == '/':
+                    text_result.append(' ')
+                else:
+                    text_result.append('?')
+            
+            text_output = ''.join(text_result)
+            print(f"\n📝 Text: {text_output}\n")
+        
+        elif choice == '3':
+            print("\n📊 Morse Code Chart:\n")
+            print("Letters:")
+            for i, (key, value) in enumerate(list(morse_code.items())[:26], 1):
+                print(f"  {key}: {value:8}", end='')
+                if i % 4 == 0:
+                    print()
+            
+            print("\n\nNumbers:")
+            for key, value in list(morse_code.items())[26:36]:
+                print(f"  {key}: {value}")
+            
+            print("\nSpecial Characters:")
+            for key, value in list(morse_code.items())[36:]:
+                print(f"  {key}: {value}")
+            print()
+        
+        elif choice == '4':
+            print("\n👋 Thanks for using Morse Code Translator! Goodbye!\n")
+            break
+        
 
         choice = input("\n➡️  Enter your choice (1-4): ")
 
@@ -196,4 +258,9 @@ def main():
 
 
 if __name__ == "__main__":
+    try:
+        main()
+    except Exception as exc:
+        log_exception("Text-to-Morse", exc)
+        raise
     main()
