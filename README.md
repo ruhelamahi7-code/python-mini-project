@@ -9,6 +9,10 @@
 [![Python Version](https://img.shields.io/badge/python-3.10--3.12-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+### 🧪 New: Standardized Error Logging
+A shared error logger is now available for mini-projects. It captures exception type, message, timestamp, traceback, and project name into JSONL logs under the logs folder, making failures easier to review and analyze.
+
+[Quick Start](#-quick-start) • [Projects](#-projects) • [Features](#-features) • [Contributing](#-contributing)
 <p align="center">
   <a href="https://python-mini-project-lovat.vercel.app/">
     <img src="https://img.shields.io/badge/live_demo-View%20App-22c55e?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
