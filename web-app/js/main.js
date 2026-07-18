@@ -816,10 +816,20 @@ document.addEventListener("DOMContentLoaded", function () {
   if (stickyTabs.length) syncStickyTabs("all");
 
   /* ── Sidebar Active Scroll Observer ───────────────────────── */
-  if (!pageCategory && projectsSection) {
+if (!pageCategory && projectsSection) {
     console.log('Setting up sidebar observer');
  
     const checkAndToggleSidebar = () => {
+      // FIX #1364: Never show sidebar if Playground is active
+      if (playgroundActive) {
+        document.body.classList.remove("sidebar-active");
+        const fixedThemeToggle = document.getElementById("fixed-theme-toggle");
+        if (fixedThemeToggle) {
+          fixedThemeToggle.style.display = "block";
+        }
+        return;
+      }
+
       if (window.innerWidth <= 768) {
         return;
       }
@@ -830,10 +840,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const showSidebar = rect.top < window.innerHeight && window.scrollY > heroBottom - 100;
  
       document.body.classList.toggle("sidebar-active", showSidebar);
-      console.log('Sidebar active:', showSidebar, 'scrollY:', window.scrollY);
+      console.log('Sidebar active:', showSidebar, 'scrollY:', window.scrollY, 'playgroundActive:', playgroundActive);
 
       // Hide fixed-theme-toggle if sidebar is active
-
       const fixedThemeToggle = document.getElementById("fixed-theme-toggle");
       if (fixedThemeToggle) {
         if (showSidebar) {
@@ -843,12 +852,12 @@ document.addEventListener("DOMContentLoaded", function () {
           fixedThemeToggle.style.display = "block";
         }
       }
-
     };
  
     window.addEventListener('scroll', checkAndToggleSidebar);
     checkAndToggleSidebar();
-  }
+}
+
  /* ═══════════════════════════════════════════════════════════════
    SEARCH - FIXED & IMPROVED
    ═══════════════════════════════════════════════════════════════ */
